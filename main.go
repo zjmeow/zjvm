@@ -2,19 +2,25 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"strings"
 )
 import "./classpath"
 
 func main() {
-	cmd := parseCmd()
-	if cmd.versionFlag {
-		fmt.Println("v1.0")
-	} else if cmd.helpFlag {
-		fmt.Println("")
-	} else {
-		startJVM(cmd)
-	}
+	fmt.Println(os.Getenv("JAVA_HOME"))
+	//cmd := parseCmd()
+	//if cmd.versionFlag {
+	//	fmt.Println("v1.0")
+	//} else if cmd.helpFlag {
+	//	fmt.Println("")
+	//} else {
+	//	startJVM(cmd)
+	//}
+	cmd := &Cmd{}
+	cmd.class = "java.lang.Object"
+	startJVM(cmd)
+
 }
 func startJVM(cmd *Cmd) {
 	cp := classpath.Parse(cmd.XjreOption, cmd.CpOption)

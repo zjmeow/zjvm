@@ -1,6 +1,7 @@
 package classpath
 
 import (
+	"bytes"
 	"errors"
 	"strings"
 )
@@ -25,5 +26,10 @@ func (c CompositeEntry) ReadClass(className string) ([]byte, Entry, error) {
 }
 
 func (c CompositeEntry) String() string {
-
+	var buffer bytes.Buffer
+	for _, entry := range c {
+		buffer.WriteString(entry.String())
+		buffer.WriteString(pathListSeparator)
+	}
+	return buffer.String()
 }
