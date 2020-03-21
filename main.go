@@ -2,13 +2,11 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"strings"
 )
 import "./classpath"
 
 func main() {
-	fmt.Println(os.Getenv("JAVA_HOME"))
 	//cmd := parseCmd()
 	//if cmd.versionFlag {
 	//	fmt.Println("v1.0")

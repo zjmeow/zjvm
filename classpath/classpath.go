@@ -17,6 +17,7 @@ func Parse(jreOption, cpOption string) *ClassPath {
 	cp.parseUserClasspath(cpOption)
 	return cp
 }
+
 func (c *ClassPath) ReadClass(className string) ([]byte, Entry, error) {
 	className += ".class"
 	if data, entry, err := c.bootClassPath.ReadClass(className); err == nil {
