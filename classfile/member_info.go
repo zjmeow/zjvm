@@ -8,10 +8,6 @@ type MemberInfo struct {
 	attributes      []AttributeInfo
 }
 
-type ConstantInfo interface {
-	readInfo(reader *ClassReader)
-}
-
 func readMembers(reader *ClassReader, cp ConstantPool) []*MemberInfo {
 	count := reader.readUint16()
 	members := make([]*MemberInfo, count)

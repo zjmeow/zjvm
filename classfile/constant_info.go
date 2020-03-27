@@ -16,3 +16,29 @@ const (
 	CONSTANT_MethodType         = 16
 	CONSTANT_InvokeDynamic      = 18
 )
+
+type ConstantInfo interface {
+	readInfo(reader *ClassReader)
+}
+
+func newTagInfo(tag uint8, cp ConstantPool) ConstantInfo {
+	switch tag {
+	case CONSTANT_Integer:
+		return &ConstantIntegerInfo{}
+	case CONSTANT_Long:
+		return &ConstantLongInfo{}
+	case CONSTANT_Float:
+		return &ConstantFloatInfo{}
+	case CONSTANT_Double:
+		return &ConstantDoubleInfo{}
+	case CONSTANT_Utf8:
+		return &ConstantUtf8Info{}
+	}
+}
+
+func readConstantInfo(reader *ClassReader, cp ConstantPool) ConstantInfo {
+	tag := reader.readUint8()
+	c := newTagInfo(tag, cp)
+	c.readInfo(reader)
+	return c
+}
