@@ -11,6 +11,18 @@ func readConstantPool(reader *ClassReader) ConstantPool {
 	return cp
 }
 
+func (cp *ConstantPool) getClassName(index uint16) string {
+	classInfo := cp.getConstantInfo(index).(*ConstantClassInfo)
+	return cp.getUtf8(classInfo.index)
+}
+
+func (cp *ConstantPool) getNameAndType(index uint16) (string, string) {
+	info := cp.getConstantInfo(index).(*ConstantNameAndTypeInfo)
+	name := cp.getUtf8(info.nameIndex)
+	tp := cp.getUtf8(info.descriptorIndex)
+	return name, tp
+}
+
 func (cp *ConstantPool) getConstantInfo(index uint16) ConstantInfo {
 	if cpInfo := (*cp)[index]; cpInfo != nil {
 		return cpInfo
