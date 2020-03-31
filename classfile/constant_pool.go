@@ -31,5 +31,5 @@ func (cp *ConstantPool) getConstantInfo(index uint16) ConstantInfo {
 }
 
 func (cp *ConstantPool) getUtf8(index uint16) string {
-	return ""
+	return cp.getConstantInfo(index).(*ConstantUtf8Info).val
 }

@@ -5,6 +5,7 @@ import (
 	"strings"
 )
 import "./classpath"
+import "./classfile"
 
 func main() {
 	//cmd := parseCmd()
@@ -29,4 +30,6 @@ func startJVM(cmd *Cmd) {
 		panic(err)
 	}
 	fmt.Println(classData)
+	cf, err := classfile.Parse(classData)
+	fmt.Println(cf)
 }

@@ -6,6 +6,7 @@ type ClassFile struct {
 	magic        uint32
 	minorVersion uint16
 	majorVersion uint16
+	constantPool ConstantPool
 	accessFlags  uint16
 	thisClass    uint16
 	superClass   uint16
@@ -34,7 +35,14 @@ func Parse(classData []byte) (cf *ClassFile, err error) {
 func (cf *ClassFile) read(reader *ClassReader) {
 	cf.readAndCheckMagic(reader)
 	cf.readAndCheckVersion(reader)
-
+	cf.constantPool = readConstantPool(reader)
+	cf.accessFlags = reader.readUint16()
+	cf.thisClass = reader.readUint16()
+	cf.superClass = reader.readUint16()
+	cf.interfaces = reader.readUint16s()
+	cf.fields = readMembers(reader, cf.constantPool)
+	cf.methods = readMembers(reader, cf.constantPool)
+	cf.attributes = readAttributes(reader, cf.constantPool)
 }
 
 func (cf *ClassFile) readAndCheckMagic(reader *ClassReader) {
@@ -42,6 +50,7 @@ func (cf *ClassFile) readAndCheckMagic(reader *ClassReader) {
 	if magic != 0xCAFEBABE {
 		panic("java.lang.ClassFormatError: magic")
 	}
+	cf.magic = magic
 }
 
 func (cf *ClassFile) readAndCheckVersion(reader *ClassReader) {

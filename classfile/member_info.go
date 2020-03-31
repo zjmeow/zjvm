@@ -23,7 +23,7 @@ func readMember(reader *ClassReader, cp ConstantPool) *MemberInfo {
 		accessFlags:     reader.readUint16(),
 		nameIndex:       reader.readUint16(),
 		descriptorIndex: reader.readUint16(),
-		attributes:      nil,
+		attributes:      readAttributes(reader, cp),
 	}
 }
 func (mi *MemberInfo) Name() string {
