@@ -66,3 +66,34 @@ func (cf *ClassFile) readAndCheckVersion(reader *ClassReader) {
 	}
 	panic("java.lang.UnsupportedClassVersionError")
 }
+
+func (cf *ClassFile) MinorVersion() uint16 {
+	return cf.minorVersion
+}
+func (cf *ClassFile) MajorVersion() uint16 {
+	return cf.majorVersion
+}
+func (cf *ClassFile) ConstantPool() ConstantPool {
+	return cf.constantPool
+}
+func (cf *ClassFile) AccessFlags() uint16 {
+	return cf.accessFlags
+}
+func (cf *ClassFile) ThisClass() uint16 {
+	return cf.thisClass
+}
+func (cf *ClassFile) SuperClass() uint16 {
+	return cf.superClass
+}
+func (cf *ClassFile) Interfaces() []uint16 {
+	return cf.interfaces
+}
+func (cf *ClassFile) Fields() []*MemberInfo {
+	return cf.fields
+}
+func (cf *ClassFile) Methods() []*MemberInfo {
+	return cf.methods
+}
+func (cf *ClassFile) Attributes() []AttributeInfo {
+	return cf.attributes
+}
