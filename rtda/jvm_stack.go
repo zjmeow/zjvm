@@ -10,11 +10,15 @@ func newStack(maxSize uint) *Stack {
 	return &Stack{maxSize: maxSize}
 }
 
-func (s Stack) push() {
+func (s Stack) push(frame *Frame) {
 	if s.size > s.maxSize {
 		panic("java.lang.StackOverflowError")
 	}
 	s.size += 1
+	if s._top != nil {
+		frame.lower = s._top
+	}
+	s._top = frame
 }
 
 func (s Stack) pop() *Frame {
