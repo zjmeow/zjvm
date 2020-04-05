@@ -1,6 +1,8 @@
 package base
 
-import "../../rtda"
+import (
+	"github.com/zjmeow/zjvm/rtda"
+)
 
 type Instruction interface {
 	Execute(frame *rtda.Frame)
@@ -20,9 +22,6 @@ type Index16Instruction struct {
 	index uint
 }
 
-func (np *NoOperandsInstruction) Execute(frame *rtda.Frame) {
-
-}
 func (np *NoOperandsInstruction) FetchOperands(reader *BytecodeReader) {
 
 }

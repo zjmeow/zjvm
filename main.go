@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
+	"github.com/zjmeow/zjvm/classfile"
+	"github.com/zjmeow/zjvm/classpath"
+	"io/ioutil"
 	"strings"
 )
-import "./classpath"
-import "./classfile"
 
 func main() {
 	//cmd := parseCmd()
@@ -30,6 +31,14 @@ func startJVM(cmd *Cmd) {
 		panic(err)
 	}
 	fmt.Println(classData)
-	cf, err := classfile.Parse(classData)
-	fmt.Println(cf)
+	bytes, err := ioutil.ReadFile("C:/Users/Administrator/Desktop/Test.class")
+	cf, err := classfile.Parse(bytes)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(cf.ConstantPool())
+	fmt.Println(cf.AccessFlags())
+	fmt.Println(cf.ThisClass())
+	fmt.Println(cf.SuperClass())
+
 }
