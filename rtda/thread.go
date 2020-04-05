@@ -6,5 +6,7 @@ type Thread struct {
 }
 
 func NewThread() *Thread {
-	return &Thread{}
+	return &Thread{
+		stack: newStack(1024),
+	}
 }
