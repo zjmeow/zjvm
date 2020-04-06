@@ -17,7 +17,7 @@ func iLoad(frame *rtda.Frame, index uint) {
 }
 
 func (ins *ILOAD) Execute(frame *rtda.Frame) {
-	iLoad(frame, uint(ins.Index))
+	iLoad(frame, ins.Index)
 }
 
 func (ins *ILOAD_0) Execute(frame *rtda.Frame) {
