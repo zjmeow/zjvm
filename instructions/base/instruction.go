@@ -16,7 +16,7 @@ type BranchInstruction struct {
 }
 
 type Index8Instruction struct {
-	index uint
+	Index uint
 }
 type Index16Instruction struct {
 	index uint
@@ -37,7 +37,7 @@ func (i *Index8Instruction) Execute(frame *rtda.Frame) {
 
 }
 func (i *Index8Instruction) FetchOperands(reader *BytecodeReader) {
-	i.index = uint(reader.ReadUint8())
+	i.Index = uint(reader.ReadUint8())
 }
 func (i *Index16Instruction) Execute(frame *rtda.Frame) {
 
