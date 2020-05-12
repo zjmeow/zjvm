@@ -62,3 +62,13 @@ func (os *OperandStack) PopRef() *Object {
 	os.slots.SetRef(os.size, nil)
 	return ref
 }
+
+func (os *OperandStack) PushSlot(slot Slot) {
+	os.slots[os.size] = slot
+	os.size++
+}
+
+func (os *OperandStack) PopSlot() Slot {
+	os.size--
+	return os.slots[os.size]
+}
