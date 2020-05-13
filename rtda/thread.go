@@ -10,3 +10,6 @@ func NewThread() *Thread {
 		stack: newStack(1024),
 	}
 }
+func (t *Thread) Pc() int {
+	return t.pc
+}

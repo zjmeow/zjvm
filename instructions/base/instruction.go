@@ -12,7 +12,7 @@ type Instruction interface {
 type NoOperandsInstruction struct {
 }
 type BranchInstruction struct {
-	offset int
+	Offset int
 }
 
 type Index8Instruction struct {
@@ -30,7 +30,7 @@ func (bi *BranchInstruction) Execute(frame *rtda.Frame) {
 
 }
 func (bi *BranchInstruction) FetchOperands(reader *BytecodeReader) {
-	bi.offset = int(reader.ReadInt16())
+	bi.Offset = int(reader.ReadInt16())
 }
 
 func (i *Index8Instruction) Execute(frame *rtda.Frame) {
