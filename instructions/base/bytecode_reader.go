@@ -35,3 +35,17 @@ func (br *BytecodeReader) ReadInt32() int32 {
 	low := int32(br.ReadUint16())
 	return (high << 16) | low
 }
+
+func (br *BytecodeReader) ReadInt32s(count int32) []int32 {
+	res := make([]int32, count)
+	for i := range res {
+		res[i] = br.ReadInt32()
+	}
+	return res
+}
+
+func (br *BytecodeReader) SkipPadding() {
+	for br.pc%4 != 0 {
+		br.ReadUint8()
+	}
+}
