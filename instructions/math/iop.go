@@ -22,13 +22,18 @@ func (ins *IOp) Execute(frame *rtda.Frame) {
 }
 
 type IInc struct {
-	base.NoOperandsInstruction
+	Index uint
+	Const int32
 }
 
+func (ins *IInc) FetchOperands(reader *base.BytecodeReader) {
+	ins.Index = uint(reader.ReadUint8())
+	ins.Const = int32(reader.ReadInt8())
+}
 func (ins *IInc) Execute(frame *rtda.Frame) {
-	stack := frame.OperandStack()
-	v := stack.PopInt()
-	stack.PushInt(v + 1)
+	val := frame.LocalVars().GetInt(ins.Index)
+	val += ins.Const
+	frame.LocalVars().SetInt(ins.Index, val)
 }
 
 type INeg struct {
