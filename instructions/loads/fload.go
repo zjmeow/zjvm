@@ -5,33 +5,26 @@ import (
 	"github.com/zjmeow/zjvm/rtda"
 )
 
+type FloatLoad struct {
+	base.NoOperandsInstruction
+	index uint
+}
 type FLOAD struct{ base.Index8Instruction }
-type FLOAD_0 struct{ base.NoOperandsInstruction }
-type FLOAD_1 struct{ base.NoOperandsInstruction }
-type FLOAD_2 struct{ base.NoOperandsInstruction }
-type FLOAD_3 struct{ base.NoOperandsInstruction }
+
+func NewFloatLoad(index uint) *FloatLoad {
+	return &FloatLoad{
+		index: index,
+	}
+}
 
 func fLoad(frame *rtda.Frame, index uint) {
 	val := frame.LocalVars().GetFloat(index)
 	frame.OperandStack().PushFloat(val)
 }
+func (ins *FloatLoad) Execute(frame *rtda.Frame) {
+	iLoad(frame, ins.index)
+}
 
 func (ins *FLOAD) Execute(frame *rtda.Frame) {
 	fLoad(frame, ins.Index)
-}
-
-func (ins *FLOAD_0) Execute(frame *rtda.Frame) {
-	fLoad(frame, 0)
-}
-
-func (ins *FLOAD_1) Execute(frame *rtda.Frame) {
-	fLoad(frame, 1)
-}
-
-func (ins *FLOAD_2) Execute(frame *rtda.Frame) {
-	fLoad(frame, 2)
-}
-
-func (ins *FLOAD_3) Execute(frame *rtda.Frame) {
-	fLoad(frame, 3)
 }

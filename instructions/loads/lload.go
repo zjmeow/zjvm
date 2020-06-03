@@ -5,33 +5,26 @@ import (
 	"github.com/zjmeow/zjvm/rtda"
 )
 
+type LongLoad struct {
+	base.NoOperandsInstruction
+	index uint
+}
 type LLOAD struct{ base.Index8Instruction }
-type LLOAD_0 struct{ base.NoOperandsInstruction }
-type LLOAD_1 struct{ base.NoOperandsInstruction }
-type LLOAD_2 struct{ base.NoOperandsInstruction }
-type LLOAD_3 struct{ base.NoOperandsInstruction }
+
+func NewLongLoad(index uint) *LongLoad {
+	return &LongLoad{
+		index: index,
+	}
+}
 
 func lLoad(frame *rtda.Frame, index uint) {
 	val := frame.LocalVars().GetLong(index)
 	frame.OperandStack().PushLong(val)
 }
+func (ins *LongLoad) Execute(frame *rtda.Frame) {
+	iLoad(frame, ins.index)
+}
 
 func (ins *LLOAD) Execute(frame *rtda.Frame) {
 	lLoad(frame, ins.Index)
-}
-
-func (ins *LLOAD_0) Execute(frame *rtda.Frame) {
-	lLoad(frame, 0)
-}
-
-func (ins *LLOAD_1) Execute(frame *rtda.Frame) {
-	lLoad(frame, 1)
-}
-
-func (ins *LLOAD_2) Execute(frame *rtda.Frame) {
-	lLoad(frame, 2)
-}
-
-func (ins *LLOAD_3) Execute(frame *rtda.Frame) {
-	lLoad(frame, 3)
 }
