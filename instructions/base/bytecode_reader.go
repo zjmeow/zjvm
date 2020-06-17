@@ -49,3 +49,6 @@ func (br *BytecodeReader) SkipPadding() {
 		br.ReadUint8()
 	}
 }
+func (br *BytecodeReader) Pc() int {
+	return br.Pc()
+}
