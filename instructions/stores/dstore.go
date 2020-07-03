@@ -5,11 +5,22 @@ import (
 	"github.com/zjmeow/zjvm/rtda"
 )
 
+type DoubleStore struct {
+	base.NoOperandsInstruction
+	index uint
+}
+
 type DSTORE struct{ base.Index8Instruction }
-type DSTORE_0 struct{ base.NoOperandsInstruction }
-type DSTORE_1 struct{ base.NoOperandsInstruction }
-type DSTORE_2 struct{ base.NoOperandsInstruction }
-type DSTORE_3 struct{ base.NoOperandsInstruction }
+
+func NewStoreDouble(index uint) *DoubleStore {
+	return &DoubleStore{
+		index: index,
+	}
+}
+
+func (ins *DoubleStore) Execute(frame *rtda.Frame) {
+	dStore(frame, ins.index)
+}
 
 func dStore(frame *rtda.Frame, index uint) {
 	val := frame.OperandStack().PopDouble()
@@ -18,20 +29,4 @@ func dStore(frame *rtda.Frame, index uint) {
 
 func (ins *DSTORE) Execute(frame *rtda.Frame) {
 	dStore(frame, ins.Index)
-}
-
-func (ins *DSTORE_0) Execute(frame *rtda.Frame) {
-	dStore(frame, 0)
-}
-
-func (ins *DSTORE_1) Execute(frame *rtda.Frame) {
-	dStore(frame, 1)
-}
-
-func (ins *DSTORE_2) Execute(frame *rtda.Frame) {
-	dStore(frame, 2)
-}
-
-func (ins *DSTORE_3) Execute(frame *rtda.Frame) {
-	dStore(frame, 3)
 }
