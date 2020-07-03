@@ -13,6 +13,83 @@ type X2Y struct {
 func (instr *X2Y) Execute(frame *rtda.Frame) {
 	instr.castFn(frame)
 }
+func NewI2C() *X2Y {
+	return &X2Y{
+		castFn: i2c,
+	}
+}
+func NewI2S() *X2Y {
+	return &X2Y{
+		castFn: i2s,
+	}
+}
+
+func NewI2B() *X2Y {
+	return &X2Y{
+		castFn: i2b,
+	}
+}
+func NewI2L() *X2Y {
+	return &X2Y{
+		castFn: i2l,
+	}
+}
+func NewI2F() *X2Y {
+	return &X2Y{
+		castFn: i2f,
+	}
+}
+func NewI2D() *X2Y {
+	return &X2Y{
+		castFn: i2d,
+	}
+}
+func NewL2I() *X2Y {
+	return &X2Y{
+		castFn: l2i,
+	}
+}
+func NewL2F() *X2Y {
+	return &X2Y{
+		castFn: l2f,
+	}
+}
+func NewL2D() *X2Y {
+	return &X2Y{
+		castFn: l2d,
+	}
+}
+
+func NewF2I() *X2Y {
+	return &X2Y{
+		castFn: f2i,
+	}
+}
+func NewF2L() *X2Y {
+	return &X2Y{
+		castFn: f2l,
+	}
+}
+func NewF2D() *X2Y {
+	return &X2Y{
+		castFn: f2d,
+	}
+}
+func NewD2I() *X2Y {
+	return &X2Y{
+		castFn: d2i,
+	}
+}
+func NewD2L() *X2Y {
+	return &X2Y{
+		castFn: d2l,
+	}
+}
+func NewD2F() *X2Y {
+	return &X2Y{
+		castFn: d2f,
+	}
+}
 
 func i2b(frame *rtda.Frame) { frame.OperandStack().PushInt(int32(int8(frame.OperandStack().PopInt()))) }
 func i2c(frame *rtda.Frame) {

@@ -5,19 +5,19 @@ import (
 	"github.com/zjmeow/zjvm/rtda"
 )
 
-type POP struct {
+type Pop struct {
 	base.NoOperandsInstruction
 }
 
-type POP2 struct {
+type Pop2 struct {
 	base.NoOperandsInstruction
 }
 
-func (ins *POP) Execute(frame *rtda.Frame) {
+func (ins *Pop) Execute(frame *rtda.Frame) {
 	frame.OperandStack().PopSlot()
 }
 
-func (ins *POP2) Execute(frame *rtda.Frame) {
+func (ins *Pop2) Execute(frame *rtda.Frame) {
 	frame.OperandStack().PopSlot()
 	frame.OperandStack().PopSlot()
 }

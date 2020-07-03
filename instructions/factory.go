@@ -3,14 +3,19 @@ package instructions
 import (
 	"fmt"
 	"github.com/zjmeow/zjvm/instructions/base"
+	"github.com/zjmeow/zjvm/instructions/comparisons"
 	"github.com/zjmeow/zjvm/instructions/constants"
+	"github.com/zjmeow/zjvm/instructions/conversions"
 	"github.com/zjmeow/zjvm/instructions/loads"
+	"github.com/zjmeow/zjvm/instructions/math"
+	"github.com/zjmeow/zjvm/instructions/stack"
+	"github.com/zjmeow/zjvm/instructions/stores"
 )
 
 // NoOperandsInstruction singletons
 var (
-	nop           = &Nop
-	aconst_null   = NewConstNull()
+	nop           = &constants.Nop{}
+	aconst_null   = &constants.ACONST_NULL{}
 	iconst_m1     = constants.NewConstInt(-1)
 	iconst_0      = constants.NewConstInt(0)
 	iconst_1      = constants.NewConstInt(1)
@@ -53,26 +58,26 @@ var (
 	baload        = NewBALoad()
 	caload        = NewCALoad()
 	saload        = NewSALoad()
-	istore_0      = NewStoreN(0, false)
-	istore_1      = NewStoreN(1, false)
-	istore_2      = NewStoreN(2, false)
-	istore_3      = NewStoreN(3, false)
-	lstore_0      = NewStoreN(0, true)
-	lstore_1      = NewStoreN(1, true)
-	lstore_2      = NewStoreN(2, true)
-	lstore_3      = NewStoreN(3, true)
-	fstore_0      = NewStoreN(0, false)
-	fstore_1      = NewStoreN(1, false)
-	fstore_2      = NewStoreN(2, false)
-	fstore_3      = NewStoreN(3, false)
-	dstore_0      = NewStoreN(0, true)
-	dstore_1      = NewStoreN(1, true)
-	dstore_2      = NewStoreN(2, true)
-	dstore_3      = NewStoreN(3, true)
-	astore_0      = NewStoreN(0, false)
-	astore_1      = NewStoreN(1, false)
-	astore_2      = NewStoreN(2, false)
-	astore_3      = NewStoreN(3, false)
+	istore_0      = stores.NewStoreInt(0)
+	istore_1      = stores.NewStoreInt(1)
+	istore_2      = stores.NewStoreInt(2)
+	istore_3      = stores.NewStoreInt(3)
+	lstore_0      = stores.NewStoreLong(0)
+	lstore_1      = stores.NewStoreLong(1)
+	lstore_2      = stores.NewStoreLong(2)
+	lstore_3      = stores.NewStoreLong(3)
+	fstore_0      = stores.NewStoreFloat(0)
+	fstore_1      = stores.NewStoreFloat(1)
+	fstore_2      = stores.NewStoreFloat(2)
+	fstore_3      = stores.NewStoreFloat(3)
+	dstore_0      = stores.NewStoreDouble(0)
+	dstore_1      = stores.NewStoreDouble(1)
+	dstore_2      = stores.NewStoreDouble(2)
+	dstore_3      = stores.NewStoreDouble(3)
+	astore_0      = stores.NewStoreA(0)
+	astore_1      = stores.NewStoreA(1)
+	astore_2      = stores.NewStoreA(2)
+	astore_3      = stores.NewStoreA(3)
 	iastore       = NewIAStore()
 	lastore       = NewLAStore()
 	fastore       = NewFAStore()
@@ -81,70 +86,70 @@ var (
 	bastore       = NewBAStore()
 	castore       = NewCAStore()
 	sastore       = NewSAStore()
-	pop           = &Pop{}
-	pop2          = &Pop2{}
-	dup           = &Dup{}
-	dup_x1        = &DupX1{}
-	dup_x2        = &DupX2{}
-	dup2          = &Dup2{}
-	dup2_x1       = &Dup2X1{}
-	dup2_x2       = &Dup2X2{}
-	swap          = &Swap{}
-	iadd          = NewIAdd()
-	ladd          = NewLAdd()
-	fadd          = NewFAdd()
-	dadd          = NewDAdd()
-	isub          = NewISub()
-	lsub          = NewLSub()
-	fsub          = NewFSub()
-	dsub          = NewDSub()
-	imul          = NewIMul()
-	lmul          = NewLMul()
-	fmul          = NewFMul()
-	dmul          = NewDMul()
-	idiv          = NewIDiv()
-	ldiv          = NewLDiv()
-	fdiv          = NewFDiv()
-	ddiv          = NewDDiv()
-	irem          = NewIRem()
-	lrem          = NewLRem()
-	frem          = NewFRem()
-	drem          = NewDRem()
-	ineg          = NewINeg()
-	lneg          = NewLNeg()
-	fneg          = NewFNeg()
-	dneg          = NewDNeg()
-	ishl          = NewIShl()
-	lshl          = NewLShl()
-	ishr          = NewIShr()
-	lshr          = NewLShr()
-	iushr         = NewIUShr()
-	lushr         = NewLUShr()
-	iand          = NewIAnd()
-	land          = NewLAnd()
-	ior           = NewIOr()
-	lor           = NewLOr()
-	ixor          = NewIXor()
-	lxor          = NewLXor()
-	i2l           = NewI2L()
-	i2f           = NewI2F()
-	i2d           = NewI2D()
-	l2i           = NewL2I()
-	l2f           = NewL2F()
-	l2d           = NewL2D()
-	f2i           = NewF2I()
-	f2l           = NewF2L()
-	f2d           = NewF2D()
-	d2i           = NewD2I()
-	d2l           = NewD2L()
-	d2f           = NewD2F()
-	i2b           = NewI2B()
-	i2c           = NewI2C()
-	i2s           = NewI2S()
-	lcmp          = NewLCMP()
-	fcmpl         = NewFCMPL()
-	fcmpg         = NewFCMPG()
-	dcmpl         = NewDCMPL()
+	pop           = &stack.Pop{}
+	pop2          = &stack.Pop2{}
+	dup           = &stack.Dup{}
+	dup_x1        = &stack.DupX1{}
+	dup_x2        = &stack.DupX2{}
+	dup2          = &stack.Dup2{}
+	dup2_x1       = &stack.Dup2X1{}
+	dup2_x2       = &stack.Dup2X2{}
+	swap          = &stack.Swap{}
+	iadd          = math.NewIAdd()
+	ladd          = math.NewLAdd()
+	fadd          = math.NewFAdd()
+	dadd          = math.NewDAdd()
+	isub          = math.NewISub()
+	lsub          = math.NewLSub()
+	fsub          = math.NewFSub()
+	dsub          = math.NewDSub()
+	imul          = math.NewIMul()
+	lmul          = math.NewLMul()
+	fmul          = math.NewFMul()
+	dmul          = math.NewDMul()
+	idiv          = math.NewIDiv()
+	ldiv          = math.NewLDiv()
+	fdiv          = math.NewFDiv()
+	ddiv          = math.NewDDiv()
+	irem          = math.NewIRem()
+	lrem          = math.NewLRem()
+	frem          = math.NewFRem()
+	drem          = math.NewDRem()
+	ineg          = math.NewINeg()
+	lneg          = math.NewLNeg()
+	fneg          = math.NewFNeg()
+	dneg          = math.NewDNeg()
+	ishl          = math.NewIShl()
+	lshl          = math.NewLShl()
+	ishr          = math.NewIShr()
+	lshr          = math.NewLShr()
+	iushr         = math.NewIUShr()
+	lushr         = math.NewLUShr()
+	iand          = math.NewIAnd()
+	land          = math.NewLAnd()
+	ior           = math.NewIOr()
+	lor           = math.NewLOr()
+	ixor          = math.NewIXor()
+	lxor          = math.NewLXor()
+	i2l           = conversions.NewI2L()
+	i2f           = conversions.NewI2F()
+	i2d           = conversions.NewI2D()
+	l2i           = conversions.NewL2I()
+	l2f           = conversions.NewL2F()
+	l2d           = conversions.NewL2D()
+	f2i           = conversions.NewF2I()
+	f2l           = conversions.NewF2L()
+	f2d           = conversions.NewF2D()
+	d2i           = conversions.NewD2I()
+	d2l           = conversions.NewD2L()
+	d2f           = conversions.NewD2F()
+	i2b           = conversions.NewI2B()
+	i2c           = conversions.NewI2C()
+	i2s           = conversions.NewI2S()
+	lcmp          = &comparisons.LCmp{}
+	fcmpl         =
+	fcmpg         =
+	dcmpl         =
 	dcmpg         = NewDCMPG()
 	ireturn       = NewXReturn(false)
 	lreturn       = NewXReturn(true)
@@ -426,7 +431,7 @@ func NewInstruction(opcode byte) base.Instruction {
 	case OpLXor:
 		return lxor
 	case OpIInc:
-		return &IInc{}
+		return math.NewIInc()
 	case OpI2L:
 		return i2l
 	case OpI2F:
