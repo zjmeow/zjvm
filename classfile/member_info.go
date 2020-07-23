@@ -39,7 +39,6 @@ func (mi *MemberInfo) CodeAttribute() *CodeAttribute {
 		case *CodeAttribute:
 			return attrInfo.(*CodeAttribute)
 		}
-		return nil
 	}
-
+	return nil
 }

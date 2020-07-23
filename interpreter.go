@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/zjmeow/zjvm/classfile"
 	"github.com/zjmeow/zjvm/instructions"
 	"github.com/zjmeow/zjvm/instructions/base"
@@ -14,8 +13,9 @@ func interpret(methodInfo *classfile.MemberInfo) {
 	maxStack := codeAttr.MaxStack()
 	code := codeAttr.Code()
 	thread := rtda.NewThread()
-	frame := thread.NewFrame(maxLocals, maxStack)
-	thread.
+	frame := thread.NewFrame(uint(maxLocals), uint(maxStack))
+	thread.PushFrame(frame)
+	loop(thread, code)
 }
 
 func loop(thread *rtda.Thread, bytecode []byte) {
@@ -29,7 +29,6 @@ func loop(thread *rtda.Thread, bytecode []byte) {
 		ins := instructions.NewInstruction(opCode)
 		ins.FetchOperands(reader)
 		frame.SetNextPc(reader.Pc())
-		fmt.Println()
 		ins.Execute(frame)
 	}
 

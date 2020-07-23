@@ -5,6 +5,12 @@ import (
 	"github.com/zjmeow/zjvm/rtda"
 )
 
+func NewLCMP() *LCmp  { return &LCmp{} }
+func NewFCMPG() *FCmp { return &FCmp{g: true} }
+func NewFCMPL() *FCmp { return &FCmp{g: false} }
+func NewDCMPG() *DCmp { return &DCmp{g: true} }
+func NewDCMPL() *DCmp { return &DCmp{g: false} }
+
 type LCmp struct {
 	base.NoOperandsInstruction
 }
