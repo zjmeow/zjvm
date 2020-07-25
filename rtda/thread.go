@@ -14,6 +14,7 @@ func NewThread() *Thread {
 func (t *Thread) Pc() int {
 	return t.pc
 }
+
 func (t *Thread) SetPc(pc int) {
 	t.pc = pc
 }

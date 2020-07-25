@@ -50,5 +50,5 @@ func (br *BytecodeReader) SkipPadding() {
 	}
 }
 func (br *BytecodeReader) Pc() int {
-	return br.Pc()
+	return br.pc
 }

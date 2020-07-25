@@ -6,7 +6,7 @@ type LocalVars []Slot
 
 func newLocalVars(size uint) LocalVars {
 	if size > 0 {
-		return make([]Slot, size)
+		return make([]Slot, size+1)
 	}
 	return nil
 }

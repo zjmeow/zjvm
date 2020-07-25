@@ -5,6 +5,7 @@ import (
 	"github.com/zjmeow/zjvm/instructions/base"
 	"github.com/zjmeow/zjvm/instructions/comparisons"
 	"github.com/zjmeow/zjvm/instructions/constants"
+	"github.com/zjmeow/zjvm/instructions/control"
 	"github.com/zjmeow/zjvm/instructions/conversions"
 	"github.com/zjmeow/zjvm/instructions/loads"
 	"github.com/zjmeow/zjvm/instructions/math"
@@ -198,10 +199,10 @@ func NewInstruction(opcode byte) base.Instruction {
 		return dconst_0
 	case OpDConst1:
 		return dconst_1
-	//case OpBIPush:
-	//	return &BIPush{}
-	//case OpSIPush:
-	//	return &SIPush{}
+	case OpBIPush:
+		return &constants.BIPush{}
+	case OpSIPush:
+		return &constants.SIPush{}
 	//case OpLDC:
 	//	return &LDC{}
 	//case OpLDCw:
@@ -472,44 +473,44 @@ func NewInstruction(opcode byte) base.Instruction {
 		return dcmpl
 	case OpDCmpG:
 		return dcmpg
-	//case OpIfEQ:
-	//	return NewIfEQ()
-	//case OpIfNE:
-	//	return NewIfNE()
-	//case OpIfLT:
-	//	return NewIfLT()
-	//case OpIfGE:
-	//	return NewIfGE()
-	//case OpIfGT:
-	//	return NewIfGT()
-	//case OpIfLE:
-	//	return NewIfLE()
-	//case OpIfICmpEQ:
-	//	return NewIfICmpEQ()
-	//case OpIfICmpNE:
-	//	return NewIfICmpNE()
-	//case OpIfICmpLT:
-	//	return NewIfICmpLT()
-	//case OpIfICmpGE:
-	//	return NewIfICmpGE()
-	//case OpIfICmpGT:
-	//	return NewIfICmpGT()
-	//case OpIfICmpLE:
-	//	return NewIfICmpLE()
-	//case OpIfACmpEQ:
-	//	return NewIfACmpEQ()
-	//case OpIfACmpNE:
-	//	return NewIfACmpNE()
-	//case OpGoto:
-	//	return &Goto{}
+	case OpIfEQ:
+		return comparisons.NewIfEQ()
+	case OpIfNE:
+		return comparisons.NewIfNE()
+	case OpIfLT:
+		return comparisons.NewIfLT()
+	case OpIfGE:
+		return comparisons.NewIfGE()
+	case OpIfGT:
+		return comparisons.NewIfGT()
+	case OpIfLE:
+		return comparisons.NewIfLE()
+	case OpIfICmpEQ:
+		return comparisons.NewIfICmpEQ()
+	case OpIfICmpNE:
+		return comparisons.NewIfICmpNE()
+	case OpIfICmpLT:
+		return comparisons.NewIfICmpLT()
+	case OpIfICmpGE:
+		return comparisons.NewIfICmpGE()
+	case OpIfICmpGT:
+		return comparisons.NewIfICmpGT()
+	case OpIfICmpLE:
+		return comparisons.NewIfICmpLE()
+	case OpIfACmpEQ:
+		return comparisons.NewIfACmpEQ()
+	case OpIfACmpNE:
+		return comparisons.NewIfACmpNE()
+	case OpGoto:
+		return &control.Goto{}
 	//case OpJSR:
 	//	return &JSR{}
 	//case OpRET:
 	//	return &RET{}
-	//case OpTableSwitch:
-	//	return &TableSwitch{}
-	//case OpLookupSwitch:
-	//	return &LookupSwitch{}
+	case OpTableSwitch:
+		return &control.TableSwitch{}
+	case OpLookupSwitch:
+		return &control.LookupSwitch{}
 	//case OpIReturn:
 	//	return ireturn
 	//case OpLReturn:
@@ -562,10 +563,10 @@ func NewInstruction(opcode byte) base.Instruction {
 	//	return &Wide{}
 	//case OpMultiANewArray:
 	//	return &MultiANewArray{}
-	//case OpIfNull:
-	//	return NewIfNull()
-	//case OpIfNonNull:
-	//	return NewIfNonNull()
+	case OpIfNull:
+		return comparisons.NewIfNull()
+	case OpIfNonNull:
+		return comparisons.NewIfNonNull()
 	//case OpGotoW:
 	//	return &GotoW{}
 	//case OpJSRw:
