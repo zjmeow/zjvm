@@ -42,7 +42,7 @@ func (ca *CodeAttribute) MaxStack() uint16 {
 	return ca.maxStack
 }
 func (ca *CodeAttribute) MaxLocals() uint16 {
-	return ca.maxStack
+	return ca.maxLocals
 }
 
 func (ca *CodeAttribute) Code() []byte {
