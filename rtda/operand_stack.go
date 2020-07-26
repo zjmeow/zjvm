@@ -1,5 +1,7 @@
 package rtda
 
+import "github.com/zjmeow/zjvm/rtda/heap"
+
 type OperandStack struct {
 	size  uint
 	slots LocalVars
@@ -51,12 +53,12 @@ func (os *OperandStack) PopDouble() float64 {
 	return os.slots.GetDouble(os.size)
 }
 
-func (os *OperandStack) PushRef(val *Object) {
+func (os *OperandStack) PushRef(val *heap.Object) {
 	os.slots.SetRef(os.size, val)
 	os.size++
 }
 
-func (os *OperandStack) PopRef() *Object {
+func (os *OperandStack) PopRef() *heap.Object {
 	os.size--
 	ref := os.slots.GetRef(os.size)
 	os.slots.SetRef(os.size, nil)

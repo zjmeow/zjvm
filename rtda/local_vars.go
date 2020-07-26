@@ -1,6 +1,9 @@
 package rtda
 
-import "math"
+import (
+	"github.com/zjmeow/zjvm/rtda/heap"
+	"math"
+)
 
 type LocalVars []Slot
 
@@ -42,9 +45,9 @@ func (lv LocalVars) GetDouble(index uint) float64 {
 	return math.Float64frombits(bits)
 }
 
-func (lv LocalVars) SetRef(index uint, val *Object) {
+func (lv LocalVars) SetRef(index uint, val *heap.Object) {
 	lv[index].ref = val
 }
-func (lv LocalVars) GetRef(index uint) *Object {
+func (lv LocalVars) GetRef(index uint) *heap.Object {
 	return lv[index].ref
 }
