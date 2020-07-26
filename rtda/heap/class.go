@@ -1,7 +1,9 @@
 package heap
 
+import "github.com/zjmeow/zjvm/classfile"
+
 type Class struct {
-	AccessFlags    uint16
+	AccessFlags    classfile.AccessFlags
 	Name           string // thisClassName
 	superClassName string
 	interfaceNames []string
