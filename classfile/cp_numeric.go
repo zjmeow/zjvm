@@ -21,10 +21,17 @@ func (ci *ConstantIntegerInfo) readInfo(reader *ClassReader) {
 	bytes := reader.readUint32()
 	ci.val = int32(bytes)
 }
+func (ci *ConstantIntegerInfo) Value() int32 {
+	return ci.val
+}
 
 func (ci *ConstantLongInfo) readInfo(reader *ClassReader) {
 	bytes := reader.readUint64()
 	ci.val = int64(bytes)
+}
+
+func (ci *ConstantLongInfo) Value() int64 {
+	return ci.val
 }
 
 func (ci *ConstantFloatInfo) readInfo(reader *ClassReader) {
@@ -32,7 +39,15 @@ func (ci *ConstantFloatInfo) readInfo(reader *ClassReader) {
 	ci.val = math.Float32frombits(bytes)
 }
 
+func (ci *ConstantFloatInfo) Value() float32 {
+	return ci.val
+}
+
 func (ci *ConstantDoubleInfo) readInfo(reader *ClassReader) {
 	bytes := reader.readUint64()
 	ci.val = math.Float64frombits(bytes)
+}
+
+func (ci *ConstantDoubleInfo) Value() float64 {
+	return ci.val
 }

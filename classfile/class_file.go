@@ -7,7 +7,7 @@ type ClassFile struct {
 	minorVersion uint16
 	majorVersion uint16
 	constantPool ConstantPool
-	accessFlags  uint16
+	accessFlags  AccessFlags
 	thisClass    uint16
 	superClass   uint16
 	interfaces   []uint16
@@ -36,7 +36,7 @@ func (cf *ClassFile) read(reader *ClassReader) {
 	cf.readAndCheckMagic(reader)
 	cf.readAndCheckVersion(reader)
 	cf.constantPool = readConstantPool(reader)
-	cf.accessFlags = reader.readUint16()
+	cf.accessFlags = AccessFlags(reader.readUint16())
 	cf.thisClass = reader.readUint16()
 	cf.superClass = reader.readUint16()
 	cf.interfaces = reader.readUint16s()
@@ -76,7 +76,7 @@ func (cf *ClassFile) MajorVersion() uint16 {
 func (cf *ClassFile) ConstantPool() ConstantPool {
 	return cf.constantPool
 }
-func (cf *ClassFile) AccessFlags() uint16 {
+func (cf *ClassFile) AccessFlags() AccessFlags {
 	return cf.accessFlags
 }
 func (cf *ClassFile) ThisClass() uint16 {
