@@ -45,3 +45,12 @@ func (mi *MemberInfo) CodeAttribute() *CodeAttribute {
 func (mi *MemberInfo) AccessFlags() AccessFlags {
 	return mi.accessFlags
 }
+
+func (mi *MemberInfo) ConstantValueAttribute() *ConstantValueAttribute {
+	for _, attrInfo := range mi.attributes {
+		switch attrInfo.(type) {
+		case *ConstantValueAttribute:
+			return attrInfo.(*ConstantValueAttribute)
+		}
+	}
+}

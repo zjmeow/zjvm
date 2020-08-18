@@ -18,6 +18,12 @@ func newField(class *Class, cfFields []*classfile.MemberInfo) []*Field {
 	return fields
 }
 
+func (f *Field) copyAttributes(field *classfile.MemberInfo) {
+	if valAttr := field.ConstantValueAttribute(); valAttr != nil {
+		f.constValueIndex = uint(valAttr.ConstantValueIndex())
+	}
+}
+
 func (f *Field) isLongOrDouble() bool {
 	return f.descriptor == "J" || f.descriptor == "D"
 }
