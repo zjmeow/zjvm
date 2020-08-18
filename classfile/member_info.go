@@ -53,4 +53,5 @@ func (mi *MemberInfo) ConstantValueAttribute() *ConstantValueAttribute {
 			return attrInfo.(*ConstantValueAttribute)
 		}
 	}
+	return nil
 }
