@@ -23,7 +23,7 @@ func (f *FieldRef) resolveField() *Field {
 
 func (f *FieldRef) resolveFieldRef() {
 	d := f.cp.class
-	c := f.resolveClass()
+	c := f.ResolveClass()
 	field := lookupField(c, f.name, f.descriptor)
 	if field == nil {
 		panic("java.lang.NoSuchAccessError")

@@ -28,3 +28,7 @@ func (c *ClassMember) isAccessibleTo(class *Class) bool {
 	}
 	return this == class
 }
+
+func (c *ClassMember) Class() *Class {
+	return c.class
+}

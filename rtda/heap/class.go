@@ -18,6 +18,7 @@ type Class struct {
 	constantPool       *ConstantPool
 	instanceFieldCount uint
 	staticFieldCount   uint
+	instanceSlotCount  uint
 }
 
 func newClass(cf *classfile.ClassFile) *Class {
@@ -48,4 +49,11 @@ func (c *Class) isSubClass(other *Class) bool {
 		}
 	}
 	return false
+}
+func (c *Class) ConstantPool() *ConstantPool {
+	return c.constantPool
+}
+
+func (c *Class) NewObject() *Object {
+	return newObject(c)
 }

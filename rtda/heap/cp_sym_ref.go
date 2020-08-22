@@ -6,13 +6,14 @@ type SymRef struct {
 	class     *Class
 }
 
-func (f *SymRef) resolveClass() *Class {
+func (f *SymRef) ResolveClass() *Class {
 	if f.class == nil {
 		f.resolveClassRef()
 	}
 	return f.class
 }
 
+// 用 c1 的加载器去加载c2，如果不可访问则丢出错误
 func (f *SymRef) resolveClassRef() {
 	c1 := f.cp.class
 	c2 := c1.classLoader.LoadClass(f.className)

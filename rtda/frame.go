@@ -1,10 +1,13 @@
 package rtda
 
+import "github.com/zjmeow/zjvm/rtda/heap"
+
 type Frame struct {
 	lower        *Frame
 	localVars    LocalVars
 	operandStack *OperandStack
 	thread       *Thread
+	method       *heap.Method
 	nextPc       int
 }
 
@@ -33,4 +36,8 @@ func (f *Frame) SetNextPc(pc int) {
 }
 func (f *Frame) NextPc() int {
 	return f.nextPc
+}
+
+func (f *Frame) ConstantPool() *heap.ConstantPool {
+	return f.method.Class().ConstantPool()
 }
