@@ -6,26 +6,18 @@ import (
 	"github.com/zjmeow/zjvm/rtda/heap"
 )
 
-type PutStatic struct {
+type GetStatic struct {
 	base.Index16Instruction
 }
 
-func (p *PutStatic) Execute(frame *rtda.Frame) {
+func (p *GetStatic) Execute(frame *rtda.Frame) {
 	method := frame.Method()
 	class := method.Class()
 	cp := frame.ConstantPool()
 	fieldRef := cp.GetConstant(p.Index).(heap.FieldRef)
 	field := fieldRef.ResolveField()
-	fieldClass := field.Class()
 	if field.IsStatic() {
 		panic("java.lang.IncompatibleClassChangeError")
-	}
-	// 如果是final，则需要看是否是在本class的 clinit 中初始化的，如果不是就要抛出异常
-	// clinit 初始化能保证是线程安全的，所以会被用来做单例初始化
-	if field.IsFinal() {
-		if class != fieldClass || method.Name() != "<clinit>" {
-			panic("java.lang.IllegalAccessError")
-		}
 	}
 	// 需要初始化的对象在栈的第一个位置
 	descriptor := field.Descriptor()
@@ -34,15 +26,15 @@ func (p *PutStatic) Execute(frame *rtda.Frame) {
 	stack := frame.OperandStack()
 	switch descriptor[0] {
 	case 'Z', 'B', 'C', 'S', 'I':
-		slots.SetInt(slotId, stack.PopInt())
+		stack.PushInt(slots.GetInt(slotId))
 	case 'F':
-		slots.SetFloat(slotId, stack.PopFloat())
+		stack.PushFloat(slots.GetFloat(slotId))
 	case 'J':
-		slots.SetLong(slotId, stack.PopLong())
+		stack.PushLong(slots.GetLong(slotId))
 	case 'D':
-		slots.SetDouble(slotId, stack.PopDouble())
+		stack.PushDouble(slots.GetDouble(slotId))
 	case 'L', '[':
-		slots.SetRef(slotId, stack.PopRef())
+		stack.PushRef(slots.GetRef(slotId))
 	}
 
 }
