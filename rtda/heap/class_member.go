@@ -32,3 +32,9 @@ func (c *ClassMember) isAccessibleTo(class *Class) bool {
 func (c *ClassMember) Class() *Class {
 	return c.class
 }
+func (c *ClassMember) Name() string {
+	return c.name
+}
+func (c *ClassMember) Descriptor() string {
+	return c.descriptor
+}

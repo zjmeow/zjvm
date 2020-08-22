@@ -27,3 +27,7 @@ func (f *Field) copyAttributes(field *classfile.MemberInfo) {
 func (f *Field) isLongOrDouble() bool {
 	return f.descriptor == "J" || f.descriptor == "D"
 }
+
+func (f *Field) SlotId() uint {
+	return f.slotId
+}

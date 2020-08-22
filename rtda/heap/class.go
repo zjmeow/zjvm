@@ -57,3 +57,6 @@ func (c *Class) ConstantPool() *ConstantPool {
 func (c *Class) NewObject() *Object {
 	return newObject(c)
 }
+func (c *Class) StaticVars() LocalVars {
+	return c.staticVars
+}

@@ -41,3 +41,6 @@ func (f *Frame) NextPc() int {
 func (f *Frame) ConstantPool() *heap.ConstantPool {
 	return f.method.Class().ConstantPool()
 }
+func (f *Frame) Method() *heap.Method {
+	return f.method
+}
