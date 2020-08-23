@@ -10,3 +10,6 @@ func (ci *ConstantUtf8Info) readInfo(reader *ClassReader) {
 	bytes := reader.readBytes(length)
 	ci.val = string(bytes)
 }
+func (ci *ConstantUtf8Info) String() string {
+	return ci.val
+}

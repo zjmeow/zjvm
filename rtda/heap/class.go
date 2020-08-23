@@ -25,9 +25,12 @@ type Class struct {
 func newClass(cf *classfile.ClassFile) *Class {
 	class := &Class{}
 	class.AccessFlags = cf.AccessFlags()
-	//class.name = cf.ClassName()
-	// todo class name未实现
-
+	class.name = cf.ClassName()
+	class.superClassName = cf.SuperClassName()
+	class.interfaceNames = cf.InterfaceNames()
+	class.constantPool = newConstantPool(class, cf.ConstantPool())
+	class.fields = newField(class, cf.Fields())
+	class.methods = newMethod(class, cf.Methods())
 	return class
 }
 

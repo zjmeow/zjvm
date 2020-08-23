@@ -532,10 +532,10 @@ func NewInstruction(opcode byte) base.Instruction {
 		return &references.GetField{}
 	case OpPutField:
 		return &references.PutField{}
-	//case OpInvokeVirtual:
-	//	return &InvokeVirtual{}
-	//case OpInvokeSpecial:
-	//	return &InvokeSpecial{}
+	case OpInvokeVirtual:
+		return &references.InvokeVirtual{}
+	case OpInvokeSpecial:
+		return &references.InvokeSpecial{}
 	//case OpInvokeStatic:
 	//	return &InvokeStatic{}
 	//case OpInvokeInterface:

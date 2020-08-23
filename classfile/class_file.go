@@ -43,6 +43,7 @@ func (cf *ClassFile) read(reader *ClassReader) {
 	cf.fields = readMembers(reader, cf.constantPool)
 	cf.methods = readMembers(reader, cf.constantPool)
 	cf.attributes = readAttributes(reader, cf.constantPool)
+
 }
 
 func (cf *ClassFile) readAndCheckMagic(reader *ClassReader) {
@@ -96,4 +97,20 @@ func (cf *ClassFile) Methods() []*MemberInfo {
 }
 func (cf *ClassFile) Attributes() []AttributeInfo {
 	return cf.attributes
+}
+func (cf *ClassFile) ClassName() string {
+	return cf.constantPool.getClassName(cf.thisClass)
+}
+func (cf *ClassFile) SuperClassName() string {
+	if cf.superClass > 0 {
+		return cf.constantPool.getClassName(cf.superClass)
+	}
+	return ""
+}
+func (cf *ClassFile) InterfaceNames() []string {
+	interfaceNames := make([]string, len(cf.interfaces))
+	for i, cpIndex := range cf.interfaces {
+		interfaceNames[i] = cf.constantPool.getClassName(cpIndex)
+	}
+	return interfaceNames
 }

@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/zjmeow/zjvm/classpath"
 	"github.com/zjmeow/zjvm/rtda/heap"
-	"strings"
 )
 
 func main() {
@@ -17,7 +16,7 @@ func main() {
 	//	startJVM(cmd)
 	//}
 	cmd := &Cmd{}
-	cmd.class = "C:/Users/Administrator/Desktop/GuassTest.class"
+	cmd.class = "C:/Users/Administrator/Desktop/GuassTest"
 	startJVM(cmd)
 }
 
@@ -25,7 +24,7 @@ func startJVM(cmd *Cmd) {
 	cp := classpath.Parse(cmd.XjreOption, cmd.CpOption)
 	fmt.Println(cmd)
 	classLoader := heap.NewClassLoader(cp)
-	className := strings.Replace(cmd.class, ".", "/", -1)
+	className := cmd.class
 	mainClass := classLoader.LoadClass(className)
 	mainMethod := mainClass.GetMainMethod()
 	interpret(mainMethod)

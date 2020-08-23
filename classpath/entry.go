@@ -1,6 +1,9 @@
 package classpath
 
-import "os"
+import (
+	"os"
+	"strings"
+)
 
 const pathListSeparator = string(os.PathListSeparator)
 
@@ -10,5 +13,14 @@ type Entry interface {
 }
 
 func newEntry(path string) Entry {
-	return nil
+	if strings.Contains(path, pathListSeparator) {
+		return newCompositeEntry(path)
+	}
+	if strings.HasSuffix(path, "*") {
+		return newWildcardEntry(path)
+	}
+	if strings.HasSuffix(path, ".jar") || strings.HasSuffix(path, ".zip") {
+		return newZipEntry(path)
+	}
+	return newDirEntry(path)
 }
