@@ -16,7 +16,7 @@ func (p *GetStatic) Execute(frame *rtda.Frame) {
 	cp := frame.ConstantPool()
 	fieldRef := cp.GetConstant(p.Index).(heap.FieldRef)
 	field := fieldRef.ResolveField()
-	if field.IsStatic() {
+	if !field.IsStatic() {
 		panic("java.lang.IncompatibleClassChangeError")
 	}
 	// 需要初始化的对象在栈的第一个位置
