@@ -2,9 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/zjmeow/zjvm/classfile"
 	"github.com/zjmeow/zjvm/classpath"
-	"io/ioutil"
+	"github.com/zjmeow/zjvm/rtda/heap"
 	"strings"
 )
 
@@ -18,37 +17,16 @@ func main() {
 	//	startJVM(cmd)
 	//}
 	cmd := &Cmd{}
-	cmd.class = "java.lang.Object"
+	cmd.class = "C:/Users/Administrator/Desktop/GuassTest.class"
 	startJVM(cmd)
 }
 
 func startJVM(cmd *Cmd) {
 	cp := classpath.Parse(cmd.XjreOption, cmd.CpOption)
 	fmt.Println(cmd)
+	classLoader := heap.NewClassLoader(cp)
 	className := strings.Replace(cmd.class, ".", "/", -1)
-	classData, _, err := cp.ReadClass(className)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(classData)
-	bytes, err := ioutil.ReadFile("C:/Users/Administrator/Desktop/GuassTest.class")
-	cf, err := classfile.Parse(bytes)
-	if err != nil {
-		panic(err)
-	}
-	mainMethod := getMainMethod(cf)
+	mainClass := classLoader.LoadClass(className)
+	mainMethod := mainClass.GetMainMethod()
 	interpret(mainMethod)
-	fmt.Println(cf.ConstantPool())
-	fmt.Println(cf.AccessFlags())
-	fmt.Println(cf.ThisClass())
-	fmt.Println(cf.SuperClass())
-}
-
-func getMainMethod(cf *classfile.ClassFile) *classfile.MemberInfo {
-	for _, m := range cf.Methods() {
-		if m.Name() == "main" && m.Descriptor() == "([Ljava/lang/String;)V" {
-			return m
-		}
-	}
-	return nil
 }

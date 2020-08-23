@@ -180,7 +180,7 @@ const (
 	OpAReturn         = 0xb0
 	OpReturn          = 0xb1
 	OpGetStatic       = 0xb2
-	OpPupStatic       = 0xb3
+	OpPutStatic       = 0xb3
 	OpGetField        = 0xb4
 	OpPutField        = 0xb5
 	OpInvokeVirtual   = 0xb6

@@ -9,6 +9,7 @@ type Class struct {
 	classfile.AccessFlags
 	name               string // thisClassName
 	superClassName     string
+	methods            []*Method
 	interfaceNames     []string
 	fields             []*Field
 	interfaces         []*Class
@@ -90,4 +91,17 @@ func (c *Class) isAssignableFrom(otherClass *Class) bool {
 	} else {
 		return otherClass.isImplements(c)
 	}
+}
+
+func (c *Class) GetMainMethod() *Method {
+	return c.getStaticMethod("main", "([Ljava/lang/String;)V")
+}
+
+func (c *Class) getStaticMethod(name, descriptor string) *Method {
+	for _, m := range c.methods {
+		if m.Name() == name && m.Descriptor() == descriptor {
+			return m
+		}
+	}
+	return nil
 }

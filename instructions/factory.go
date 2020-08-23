@@ -9,6 +9,7 @@ import (
 	"github.com/zjmeow/zjvm/instructions/conversions"
 	"github.com/zjmeow/zjvm/instructions/loads"
 	"github.com/zjmeow/zjvm/instructions/math"
+	"github.com/zjmeow/zjvm/instructions/references"
 	"github.com/zjmeow/zjvm/instructions/stack"
 	"github.com/zjmeow/zjvm/instructions/stores"
 )
@@ -203,12 +204,12 @@ func NewInstruction(opcode byte) base.Instruction {
 		return &constants.BIPush{}
 	case OpSIPush:
 		return &constants.SIPush{}
-	//case OpLDC:
-	//	return &LDC{}
-	//case OpLDCw:
-	//	return &LDC_W{}
-	//case OpLDC2w:
-	//	return &LDC2_W{}
+	case OpLDC:
+		return &constants.Ldc{}
+	case OpLDCw:
+		return &constants.LdcW{}
+	case OpLDC2w:
+		return &constants.Ldc2W{}
 	//case OpILoad:
 	//	return NewLoad(false)
 	//case OpLLoad:
@@ -523,14 +524,14 @@ func NewInstruction(opcode byte) base.Instruction {
 	//	return areturn
 	//case OpReturn:
 	//	return _return
-	//case OpGetStatic:
-	//	return &GetStatic{}
-	//case OpPupStatic:
-	//	return &PupStatic{}
-	//case OpGetField:
-	//	return &GetField{}
-	//case OpPutField:
-	//	return &PutField{}
+	case OpGetStatic:
+		return &references.GetStatic{}
+	case OpPutStatic:
+		return &references.PutStatic{}
+	case OpGetField:
+		return &references.GetField{}
+	case OpPutField:
+		return &references.PutField{}
 	//case OpInvokeVirtual:
 	//	return &InvokeVirtual{}
 	//case OpInvokeSpecial:
@@ -541,8 +542,8 @@ func NewInstruction(opcode byte) base.Instruction {
 	//	return &InvokeInterface{}
 	//case OpInvokeDynamic:
 	//	return &InvokeDynamic{}
-	//case OpNew:
-	//	return &New{}
+	case OpNew:
+		return &references.New{}
 	//case OpNewArray:
 	//	return &NewArray{}
 	//case OpANewArray:
@@ -551,10 +552,10 @@ func NewInstruction(opcode byte) base.Instruction {
 	//	return arraylength
 	//case OpAThrow:
 	//	return athrow
-	//case OpCheckCast:
-	//	return &CheckCast{}
-	//case OpInstanceOf:
-	//	return &InstanceOf{}
+	case OpCheckCast:
+		return &references.CheckCast{}
+	case OpInstanceOf:
+		return &references.InstanceOf{}
 	//case OpMonitorEnter:
 	//	return monitorenter
 	//case OpMonitorExit:
