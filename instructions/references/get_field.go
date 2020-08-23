@@ -10,11 +10,11 @@ type GetField struct {
 	base.Index16Instruction
 }
 
-func (p *GetField) Execute(frame *rtda.Frame) {
+func (g *GetField) Execute(frame *rtda.Frame) {
 	method := frame.Method()
 	class := method.Class()
 	cp := frame.ConstantPool()
-	fieldRef := cp.GetConstant(p.Index).(heap.FieldRef)
+	fieldRef := cp.GetConstant(g.Index).(heap.FieldRef)
 	field := fieldRef.ResolveField()
 	fieldClass := field.Class()
 	if field.IsStatic() {

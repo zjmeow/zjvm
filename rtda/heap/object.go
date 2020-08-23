@@ -11,3 +11,10 @@ func newObject(class *Class) *Object {
 		fields: newSlots(class.instanceSlotCount),
 	}
 }
+
+func (o *Object) Fields() LocalVars {
+	return o.fields
+}
+func (o *Object) IsInstanceOf(class *Class) bool {
+	return class.isAssignableFrom(o.class)
+}

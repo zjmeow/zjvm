@@ -50,3 +50,20 @@ func (lv LocalVars) SetRef(index uint, val *Object) {
 func (lv LocalVars) GetRef(index uint) *Object {
 	return lv[index].ref
 }
+
+func (lv LocalVars) Set(index uint, val interface{}) {
+	switch val.(type) {
+	case int32:
+		lv.SetInt(index, val.(int32))
+	case int64:
+		lv.SetLong(index, val.(int64))
+	case float32:
+		lv.SetFloat(index, val.(float32))
+	case float64:
+		lv.SetDouble(index, val.(float64))
+	case *Object:
+		lv.SetRef(index, val.(*Object))
+	default:
+		panic("type not found")
+	}
+}

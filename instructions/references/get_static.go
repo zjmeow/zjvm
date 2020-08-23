@@ -10,11 +10,11 @@ type GetStatic struct {
 	base.Index16Instruction
 }
 
-func (p *GetStatic) Execute(frame *rtda.Frame) {
+func (g *GetStatic) Execute(frame *rtda.Frame) {
 	method := frame.Method()
 	class := method.Class()
 	cp := frame.ConstantPool()
-	fieldRef := cp.GetConstant(p.Index).(heap.FieldRef)
+	fieldRef := cp.GetConstant(g.Index).(heap.FieldRef)
 	field := fieldRef.ResolveField()
 	if !field.IsStatic() {
 		panic("java.lang.IncompatibleClassChangeError")

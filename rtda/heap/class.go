@@ -60,3 +60,34 @@ func (c *Class) NewObject() *Object {
 func (c *Class) StaticVars() LocalVars {
 	return c.staticVars
 }
+
+func (c *Class) isImplements(iface *Class) bool {
+	for class := c; class != nil; class = class.superClass {
+		for _, i := range class.interfaces {
+			if i == iface || i.isSubInterfaceOf(iface) {
+				return true
+			}
+		}
+	}
+	return false
+}
+
+func (c *Class) isSubInterfaceOf(iface *Class) bool {
+	for _, superInterface := range c.interfaces {
+		if superInterface == iface || superInterface.isSubInterfaceOf(iface) {
+			return true
+		}
+	}
+	return false
+}
+
+func (c *Class) isAssignableFrom(otherClass *Class) bool {
+	if c == otherClass {
+		return true
+	}
+	if !c.IsInterface() {
+		return otherClass.isSubClass(c)
+	} else {
+		return otherClass.isImplements(c)
+	}
+}
