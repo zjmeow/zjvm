@@ -22,8 +22,8 @@ func (ins *AStore) Execute(frame *rtda.Frame) {
 }
 
 func aStore(frame *rtda.Frame, index uint) {
-	val := frame.OperandStack().PopDouble()
-	frame.LocalVars().SetDouble(index, val)
+	val := frame.OperandStack().PopRef()
+	frame.LocalVars().SetRef(index, val)
 }
 
 func (ins *ASTORE) Execute(frame *rtda.Frame) {
