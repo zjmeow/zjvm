@@ -32,3 +32,7 @@ func (t *Thread) PopFrame() *Frame {
 func (t *Thread) PushFrame(frame *Frame) {
 	t.stack.push(frame)
 }
+
+func (t *Thread) TopFrame() (frame *Frame) {
+	return t.stack._top
+}
