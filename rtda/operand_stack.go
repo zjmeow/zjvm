@@ -74,3 +74,6 @@ func (os *OperandStack) PopSlot() Slot {
 	os.size--
 	return os.slots[os.size]
 }
+func (os *OperandStack) SetSlot(index uint, slot Slot) {
+	os.slots[index] = slot
+}

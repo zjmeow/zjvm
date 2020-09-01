@@ -4,9 +4,10 @@ import "github.com/zjmeow/zjvm/classfile"
 
 type Method struct {
 	ClassMember
-	maxStack  uint16
-	maxLocals uint16
-	code      []byte
+	maxStack     uint16
+	maxLocals    uint16
+	code         []byte
+	argSlotCount uint
 }
 
 func newMethod(class *Class, cfMethods []*classfile.MemberInfo) []*Method {
@@ -16,6 +17,7 @@ func newMethod(class *Class, cfMethods []*classfile.MemberInfo) []*Method {
 		methods[i].class = class
 		methods[i].copyMemberInfo(method)
 		methods[i].copyAttributes(method)
+		methods[i].calcArgSlotCount()
 	}
 	return methods
 }
@@ -35,4 +37,20 @@ func (m *Method) MaxLocals() uint16 {
 }
 func (m *Method) Code() []byte {
 	return m.code
+}
+
+func (m *Method) ArgSlotCount() uint {
+	return m.argSlotCount
+}
+func (m *Method) calcArgSlotCount() {
+	parsedDescriptor := parseMethodDescriptor(m.descriptor)
+	for _, paramType := range parsedDescriptor.parameterTypes {
+		m.argSlotCount++
+		if paramType == "J" || paramType == "D" {
+			m.argSlotCount++
+		}
+	}
+	if !m.IsStatic() {
+		m.argSlotCount++
+	}
 }
