@@ -34,7 +34,7 @@ func newClass(cf *classfile.ClassFile) *Class {
 	return class
 }
 
-func (c *Class) getPackageName() string {
+func (c *Class) GetPackageName() string {
 	if i := strings.LastIndex(c.name, "/"); i >= 0 {
 		return c.name[:i]
 	}
@@ -44,9 +44,9 @@ func (c *Class) isAccessibleTo(other *Class) bool {
 	if c.IsPublic() {
 		return true
 	}
-	return c.getPackageName() == other.getPackageName()
+	return c.GetPackageName() == other.GetPackageName()
 }
-func (c *Class) isSubClass(other *Class) bool {
+func (c *Class) IsSubClass(other *Class) bool {
 	for parent := c.superClass; parent != nil; parent = parent.superClass {
 		if parent == other {
 			return true
@@ -90,7 +90,7 @@ func (c *Class) isAssignableFrom(otherClass *Class) bool {
 		return true
 	}
 	if !c.IsInterface() {
-		return otherClass.isSubClass(c)
+		return otherClass.IsSubClass(c)
 	} else {
 		return otherClass.isImplements(c)
 	}
@@ -107,4 +107,7 @@ func (c *Class) getStaticMethod(name, descriptor string) *Method {
 		}
 	}
 	return nil
+}
+func (c *Class) SuperClass() *Class {
+	return c.superClass
 }

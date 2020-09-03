@@ -3,6 +3,7 @@ package references
 import (
 	"github.com/zjmeow/zjvm/instructions/base"
 	"github.com/zjmeow/zjvm/rtda"
+	"github.com/zjmeow/zjvm/rtda/heap"
 )
 
 type InvokeSpecial struct {
@@ -10,5 +11,39 @@ type InvokeSpecial struct {
 }
 
 func (ins *InvokeSpecial) Execute(frame *rtda.Frame) {
-	frame.OperandStack().PopRef()
+	currentClass := frame.Method().Class()
+	cp := currentClass.ConstantPool()
+	methodRef := cp.GetConstant(ins.Index).(*heap.MethodRef)
+	resolvedClass := methodRef.ResolveClass()
+	resolveMethod := methodRef.ResolvedMethod()
+	if resolveMethod.Name() == "<init>" && resolveMethod.Class() != resolvedClass {
+		panic("java.lang.NoSuchMethodError")
+	}
+	if resolveMethod.IsStatic() {
+		panic("java.lang.IncompatibleClassChangeError")
+	}
+	// 弹出this引用
+	ref := frame.OperandStack().GetRefFromTop(resolveMethod.ArgSlotCount())
+	if ref == nil {
+		panic("java.lang.NullPointException")
+	}
+	// 如果是在子类里调用的，需要检查父类的方法权限是不是protect以上的
+	if resolveMethod.IsProtected() &&
+		resolveMethod.Class().IsSubClass(currentClass) &&
+		resolveMethod.Class().GetPackageName() != currentClass.GetPackageName() &&
+		ref.Class() != currentClass &&
+		!ref.Class().IsSubClass(currentClass) {
+		panic("java.lang.IllegalAccessError")
+	}
+	methodToBeInvoked := resolveMethod
+	// 如果该类子类，被转换成了父类，仍然去调用子类的方法，init方法除外
+	if currentClass.IsSuper() && currentClass.IsSubClass(currentClass) && resolveMethod.Name() != "<init>" {
+		methodToBeInvoked = heap.LookupMethodInClass(currentClass.SuperClass(), methodRef.Name(),
+			methodRef.Descriptor())
+	}
+
+	if methodToBeInvoked == nil || methodToBeInvoked.IsAbstract() {
+		panic("java.lang.AbstractMethodError")
+	}
+	base.InvokeMethod(frame, methodToBeInvoked)
 }

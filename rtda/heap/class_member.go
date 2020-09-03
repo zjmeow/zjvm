@@ -21,10 +21,10 @@ func (c *ClassMember) isAccessibleTo(class *Class) bool {
 	}
 	this := c.class
 	if c.IsProtected() {
-		return class == this || class.isSubClass(this)
+		return class == this || class.IsSubClass(this)
 	}
 	if !c.IsPrivate() {
-		return this.getPackageName() == class.getPackageName()
+		return this.GetPackageName() == class.GetPackageName()
 	}
 	return this == class
 }

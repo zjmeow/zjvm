@@ -31,7 +31,6 @@ func (f *Frame) Thread() *Thread {
 	return f.thread
 }
 
-// TODO
 func (f *Frame) SetNextPc(pc int) {
 	f.nextPc = pc
 }
