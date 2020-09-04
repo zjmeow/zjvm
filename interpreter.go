@@ -11,18 +11,19 @@ import (
 
 func interpret(method *heap.Method) {
 	thread := rtda.NewThread()
+	defer catchErr(thread)
 	frame := thread.NewFrame(method)
 	thread.PushFrame(frame)
-	loop(thread, method.Code())
+	loop(thread)
 }
 
-func loop(thread *rtda.Thread, bytecode []byte) {
-	frame := thread.PopFrame()
+func loop(thread *rtda.Thread) {
 	reader := &base.BytecodeReader{}
 	for {
+		frame := thread.TopFrame()
 		pc := frame.NextPc()
 		thread.SetPc(pc)
-		reader.Reset(bytecode, pc)
+		reader.Reset(frame.Method().Code(), pc)
 		opCode := reader.ReadUint8()
 		ins := instructions.NewInstruction(opCode)
 		fmt.Println(reflect.TypeOf(ins))
@@ -31,6 +32,23 @@ func loop(thread *rtda.Thread, bytecode []byte) {
 		ins.Execute(frame)
 		fmt.Println(frame.OperandStack())
 		fmt.Println(frame.LocalVars())
+		if thread.StackIsEmpty() {
+			break
+		}
 	}
 
+}
+func catchErr(thread *rtda.Thread) {
+	if r := recover(); r != nil {
+		logFrame(thread)
+		panic(r)
+	}
+}
+func logFrame(thread *rtda.Thread) {
+	for !thread.StackIsEmpty() {
+		frame := thread.PopFrame()
+		method := frame.Method()
+		className := method.Class()
+		fmt.Printf(">> pc: %4d %v %v %v \n", frame.NextPc(), className, method.Name(), method.Descriptor())
+	}
 }
