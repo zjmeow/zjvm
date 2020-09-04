@@ -6,6 +6,7 @@ import (
 	"github.com/zjmeow/zjvm/rtda/heap"
 )
 
+// 调用静态方法
 type InvokeStatic struct {
 	base.Index16Instruction
 }

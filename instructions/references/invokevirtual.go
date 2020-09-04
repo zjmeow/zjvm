@@ -6,16 +6,35 @@ import (
 	"github.com/zjmeow/zjvm/rtda/heap"
 )
 
+// 调用实例对象的方法
 type InvokeVirtual struct {
 	base.Index16Instruction
 }
 
 func (ins *InvokeVirtual) Execute(frame *rtda.Frame) {
-	cp := frame.Method().Class().ConstantPool()
+	currentClass := frame.Method().Class()
+	cp := currentClass.ConstantPool()
 	methodRef := cp.GetConstant(ins.Index).(*heap.MethodRef)
-	stack := frame.OperandStack()
-	if methodRef.Name() == "println" {
-
+	resolveMethod := methodRef.ResolvedMethod()
+	if resolveMethod.IsStatic() {
+		panic("java.lang.IncompatibleClassChangeError")
 	}
-	stack.PopRef()
+	// 拿到调用方的引用，如果为空抛出空异常
+	ref := frame.OperandStack().GetRefFromTop(resolveMethod.ArgSlotCount())
+	if ref == nil {
+		panic("java.lang.NullPointException")
+	}
+	// 判断权限
+	if resolveMethod.IsProtected() &&
+		resolveMethod.Class().IsSubClass(currentClass) &&
+		resolveMethod.Class().GetPackageName() != currentClass.GetPackageName() &&
+		ref.Class() != currentClass &&
+		!ref.Class().IsSubClass(currentClass) {
+		panic("java.lang.IllegalAccessError")
+	}
+	methodToBeInvoked := heap.LookupMethodInClass(ref.Class(), methodRef.Name(), methodRef.Descriptor())
+	if methodToBeInvoked == nil || methodToBeInvoked.IsAbstract() {
+		panic("java.lang.AbstractMethodError")
+	}
+	base.InvokeMethod(frame, methodToBeInvoked)
 }

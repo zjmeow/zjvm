@@ -6,6 +6,8 @@ import (
 	"github.com/zjmeow/zjvm/rtda/heap"
 )
 
+// 指令用于调用一些需要特殊处理的实例方法，包括实例初始化方法、私有方法和父类方法
+// 因为不需要动态绑定，所以使用这个方法会加快调用速度
 type InvokeSpecial struct {
 	base.Index16Instruction
 }
