@@ -8,6 +8,7 @@ import (
 func InvokeMethod(invokerFrame *rtda.Frame, method *heap.Method) {
 	thread := invokerFrame.Thread()
 	newFrame := thread.NewFrame(method)
+	thread.PushFrame(newFrame)
 	argSlot := int(method.ArgSlotCount())
 	if argSlot > 0 {
 		for i := argSlot - 1; i >= 0; i-- {
