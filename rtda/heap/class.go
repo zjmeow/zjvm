@@ -65,7 +65,7 @@ func (c *Class) StaticVars() LocalVars {
 	return c.staticVars
 }
 
-func (c *Class) isImplements(iface *Class) bool {
+func (c *Class) IsImplements(iface *Class) bool {
 	for class := c; class != nil; class = class.superClass {
 		for _, i := range class.interfaces {
 			if i == iface || i.isSubInterfaceOf(iface) {
@@ -92,7 +92,7 @@ func (c *Class) isAssignableFrom(otherClass *Class) bool {
 	if !c.IsInterface() {
 		return otherClass.IsSubClass(c)
 	} else {
-		return otherClass.isImplements(c)
+		return otherClass.IsImplements(c)
 	}
 }
 
