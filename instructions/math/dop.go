@@ -14,8 +14,8 @@ type DOp struct {
 
 func (ins *DOp) Execute(frame *rtda.Frame) {
 	stack := frame.OperandStack()
-	v1 := stack.PopDouble()
 	v2 := stack.PopDouble()
+	v1 := stack.PopDouble()
 	if ins.div && v2 == 0 {
 		panic("div by zero")
 	}

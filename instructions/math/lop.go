@@ -13,8 +13,8 @@ type LOp struct {
 
 func (ins *LOp) Execute(frame *rtda.Frame) {
 	stack := frame.OperandStack()
-	v1 := stack.PopLong()
 	v2 := stack.PopLong()
+	v1 := stack.PopLong()
 	if ins.div && v2 == 0 {
 		panic("div by zero")
 	}

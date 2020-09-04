@@ -14,8 +14,8 @@ type FOp struct {
 
 func (ins *FOp) Execute(frame *rtda.Frame) {
 	stack := frame.OperandStack()
-	v1 := stack.PopFloat()
 	v2 := stack.PopFloat()
+	v1 := stack.PopFloat()
 	if ins.div && v2 == 0 {
 		panic("div by zero")
 	}

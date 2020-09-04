@@ -13,8 +13,8 @@ type IOp struct {
 
 func (ins *IOp) Execute(frame *rtda.Frame) {
 	stack := frame.OperandStack()
-	v1 := stack.PopInt()
 	v2 := stack.PopInt()
+	v1 := stack.PopInt()
 	if ins.div && v2 == 0 {
 		panic("div by zero")
 	}
