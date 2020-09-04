@@ -14,6 +14,9 @@ type Return struct {
 func (r *Return) Execute(frame *rtda.Frame) {
 	thread := frame.Thread()
 	currentFrame := thread.PopFrame()
+	if r.returnType == "v" {
+		return
+	}
 	invokerFrame := thread.TopFrame()
 	switch r.returnType {
 	case "i":
@@ -32,8 +35,8 @@ func (r *Return) Execute(frame *rtda.Frame) {
 		returnVal := currentFrame.OperandStack().PopRef()
 		invokerFrame.OperandStack().PushRef(returnVal)
 		// void直接返回
-	case "v":
-		return
+	default:
+		panic("illegal return type")
 	}
 
 }

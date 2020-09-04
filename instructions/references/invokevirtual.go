@@ -21,7 +21,7 @@ func (ins *InvokeVirtual) Execute(frame *rtda.Frame) {
 		panic("java.lang.IncompatibleClassChangeError")
 	}
 	// 拿到调用方的引用，如果为空抛出空异常
-	ref := frame.OperandStack().GetRefFromTop(resolveMethod.ArgSlotCount() - 1)
+	ref := frame.OperandStack().GetRefFromTop(resolveMethod.ArgSlotCount() - 2)
 	if ref == nil {
 		if methodRef.Name() == "println" {
 			fmt.Println(frame.OperandStack())

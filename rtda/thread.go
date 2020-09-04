@@ -34,7 +34,7 @@ func (t *Thread) PushFrame(frame *Frame) {
 }
 
 func (t *Thread) TopFrame() (frame *Frame) {
-	return t.stack._top
+	return t.stack.top()
 }
 func (t *Thread) StackIsEmpty() bool {
 	return t.stack.IsEmpty()

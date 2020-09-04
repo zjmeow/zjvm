@@ -74,9 +74,6 @@ func (os *OperandStack) PopSlot() Slot {
 	os.size--
 	return os.slots[os.size]
 }
-func (os *OperandStack) SetSlot(index uint, slot Slot) {
-	os.slots[index] = slot
-}
 
 func (os *OperandStack) GetRefFromTop(index uint) *heap.Object {
 	return os.slots[os.size-index-1].ref
