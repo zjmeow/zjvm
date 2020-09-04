@@ -16,6 +16,12 @@ func (n *New) Execute(frame *rtda.Frame) {
 	cp := frame.ConstantPool()
 	classRef := cp.GetConstant(n.Index).(*heap.ClassRef)
 	class := classRef.ResolveClass()
+	// 如果类还未初始化，先初始化类
+	if !class.InitStarted() {
+		frame.RevertNextPC()
+		base.InitClass(frame.Thread(), class)
+		return
+	}
 	if class.IsInterface() || class.IsAbstract() {
 		panic("java.lang.InstantiationError")
 	}

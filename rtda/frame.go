@@ -44,3 +44,7 @@ func (f *Frame) ConstantPool() *heap.ConstantPool {
 func (f *Frame) Method() *heap.Method {
 	return f.method
 }
+
+func (f *Frame) RevertNextPC() {
+	f.nextPc = f.thread.pc
+}
