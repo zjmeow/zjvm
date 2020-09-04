@@ -1,6 +1,7 @@
 package references
 
 import (
+	"fmt"
 	"github.com/zjmeow/zjvm/instructions/base"
 	"github.com/zjmeow/zjvm/rtda"
 	"github.com/zjmeow/zjvm/rtda/heap"
@@ -20,8 +21,12 @@ func (ins *InvokeVirtual) Execute(frame *rtda.Frame) {
 		panic("java.lang.IncompatibleClassChangeError")
 	}
 	// 拿到调用方的引用，如果为空抛出空异常
-	ref := frame.OperandStack().GetRefFromTop(resolveMethod.ArgSlotCount())
+	ref := frame.OperandStack().GetRefFromTop(resolveMethod.ArgSlotCount() - 1)
 	if ref == nil {
+		if methodRef.Name() == "println" {
+			fmt.Println(frame.OperandStack())
+			return
+		}
 		panic("java.lang.NullPointException")
 	}
 	// 判断权限

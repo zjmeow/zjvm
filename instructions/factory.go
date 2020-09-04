@@ -512,18 +512,18 @@ func NewInstruction(opcode byte) base.Instruction {
 		return &control.TableSwitch{}
 	case OpLookupSwitch:
 		return &control.LookupSwitch{}
-	//case OpIReturn:
-	//	return ireturn
-	//case OpLReturn:
-	//	return lreturn
-	//case OpFReturn:
-	//	return freturn
-	//case OpDReturn:
-	//	return dreturn
-	//case OpAReturn:
-	//	return areturn
-	//case OpReturn:
-	//	return _return
+	case OpIReturn:
+		return ireturn
+	case OpLReturn:
+		return lreturn
+	case OpFReturn:
+		return freturn
+	case OpDReturn:
+		return dreturn
+	case OpAReturn:
+		return areturn
+	case OpReturn:
+		return _return
 	case OpGetStatic:
 		return &references.GetStatic{}
 	case OpPutStatic:
@@ -536,10 +536,10 @@ func NewInstruction(opcode byte) base.Instruction {
 		return &references.InvokeVirtual{}
 	case OpInvokeSpecial:
 		return &references.InvokeSpecial{}
-	//case OpInvokeStatic:
-	//	return &InvokeStatic{}
-	//case OpInvokeInterface:
-	//	return &InvokeInterface{}
+	case OpInvokeStatic:
+		return &references.InvokeStatic{}
+	case OpInvokeInterface:
+		return &references.InvokeInterface{}
 	//case OpInvokeDynamic:
 	//	return &InvokeDynamic{}
 	case OpNew:
