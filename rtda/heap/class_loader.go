@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/zjmeow/zjvm/classfile"
 	"github.com/zjmeow/zjvm/classpath"
+	"strings"
 )
 
 // 类加载的过程：加载→连接→初始化
@@ -23,7 +24,28 @@ func (cl *ClassLoader) LoadClass(name string) *Class {
 	if class, ok := cl.classMap[name]; ok {
 		return class
 	}
+	// 如果是数组
+	if strings.HasPrefix(name, "[") {
+		return cl.loadArrayClass(name)
+	}
 	return cl.loadNonArrayClass(name)
+}
+
+// 数组类初始化比较简单创建好类放进map中即可
+func (cl *ClassLoader) loadArrayClass(name string) *Class {
+	class := &Class{
+		AccessFlags: classfile.AccPublic,
+		name:        name,
+		classLoader: cl,
+		initStarted: true,
+		superClass:  cl.LoadClass("java/lang/Object"),
+		interfaces: []*Class{
+			cl.LoadClass("java/lang/Cloneable"),
+			cl.LoadClass("java/io/Serializable"),
+		},
+	}
+	cl.classMap[name] = class
+	return class
 }
 
 func (cl *ClassLoader) loadNonArrayClass(name string) *Class {

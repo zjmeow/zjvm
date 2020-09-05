@@ -121,3 +121,6 @@ func (c *Class) StartInit() {
 func (c *Class) GetClinitMethod() *Method {
 	return c.getStaticMethod("<clinit>", "()V")
 }
+func (c *Class) IsArray() bool {
+	return strings.HasPrefix(c.name, "[")
+}

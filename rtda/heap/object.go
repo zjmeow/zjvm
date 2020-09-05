@@ -1,19 +1,19 @@
 package heap
 
 type Object struct {
-	class  *Class
-	fields LocalVars
+	class *Class
+	data  interface{}
 }
 
 func newObject(class *Class) *Object {
 	return &Object{
-		class:  class,
-		fields: newSlots(class.instanceSlotCount),
+		class: class,
+		data:  newSlots(class.instanceSlotCount),
 	}
 }
 
 func (o *Object) Fields() LocalVars {
-	return o.fields
+	return o.data.(LocalVars)
 }
 func (o *Object) IsInstanceOf(class *Class) bool {
 	return class.isAssignableFrom(o.class)

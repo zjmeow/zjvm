@@ -19,7 +19,9 @@ func InvokeMethod(invokerFrame *rtda.Frame, method *heap.Method) {
 	if method.IsNative() {
 		if method.Name() == "registerNatives" {
 			thread.PopFrame()
+		} else {
+			panic("not support native method")
 		}
-		panic("not support native method")
+
 	}
 }
