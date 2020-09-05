@@ -22,7 +22,7 @@ func (o *Object) Doubles() []float64 {
 func (o *Object) Refs() []*Object {
 	return o.data.([]*Object)
 }
-func ArrayLength(o *Object) int32 {
+func (o *Object) ArrayLength() int32 {
 	switch o.data.(type) {
 	case []int8:
 		return int32(len(o.Bytes()))

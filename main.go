@@ -16,7 +16,7 @@ func main() {
 	//	startJVM(cmd)
 	//}
 	cmd := &Cmd{}
-	cmd.class = "/Users/jiimyzhang/Desktop/FibTest"
+	cmd.class = "C:/Users/Administrator/Desktop/FibTest"
 	startJVM(cmd)
 }
 
