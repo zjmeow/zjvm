@@ -124,3 +124,6 @@ func (c *Class) GetClinitMethod() *Method {
 func (c *Class) IsArray() bool {
 	return strings.HasPrefix(c.name, "[")
 }
+func (c *Class) ClassLoader() *ClassLoader {
+	return c.classLoader
+}
