@@ -30,3 +30,24 @@ func toDescriptor(className string) string {
 	// 类数组
 	return "L" + className + ";"
 }
+func getComponentClassName(className string) string {
+	if strings.HasPrefix(className, "[") {
+		componentTypeDescriptor := className[1:]
+		return toClassName(componentTypeDescriptor)
+	}
+	panic("Not Array: " + className)
+}
+func toClassName(descriptor string) string {
+	if strings.HasPrefix(descriptor, "[") {
+		return descriptor
+	}
+	if strings.HasPrefix(descriptor, "L") {
+		return descriptor[1 : len(descriptor)-1]
+	}
+	for className, desc := range primitiveTypes {
+		if desc == descriptor {
+			return className
+		}
+	}
+	panic("Invalid descriptor:" + descriptor)
+}

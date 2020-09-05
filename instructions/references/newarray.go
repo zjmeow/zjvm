@@ -7,14 +7,15 @@ import (
 )
 
 const (
-	BOOLEAN = 4
-	CHAR    = 5
-	FLOAT   = 6
-	DOUBLE  = 7
-	BYTE    = 8
-	SHORT   = 9
-	INT     = 10
-	LONG    = 11
+	ArrayRef     = 0 //这个不是虚拟机定义的，是我们自己定义的
+	ArrayBoolean = 4
+	ArrayChar    = 5
+	ArrayFloat   = 6
+	ArrayDouble  = 7
+	ArrayByte    = 8
+	ArrayShort   = 9
+	ArrayInt     = 10
+	ArrayLong    = 11
 )
 
 type NewArray struct {
@@ -38,21 +39,21 @@ func (n *NewArray) Execute(frame *rtda.Frame) {
 }
 func getArrayClass(loader *heap.ClassLoader, arrayType uint8) *heap.Class {
 	switch arrayType {
-	case BOOLEAN:
+	case ArrayBoolean:
 		return loader.LoadClass("[Z")
-	case BYTE:
+	case ArrayByte:
 		return loader.LoadClass("[B")
-	case CHAR:
+	case ArrayChar:
 		return loader.LoadClass("[C")
-	case SHORT:
+	case ArrayShort:
 		return loader.LoadClass("[S")
-	case INT:
+	case ArrayInt:
 		return loader.LoadClass("[I")
-	case LONG:
+	case ArrayLong:
 		return loader.LoadClass("[J")
-	case FLOAT:
+	case ArrayFloat:
 		return loader.LoadClass("[F")
-	case DOUBLE:
+	case ArrayDouble:
 		return loader.LoadClass("[D")
 	default:
 		panic("Invalid array type")
