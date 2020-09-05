@@ -9,7 +9,6 @@ type MethodDescriptor struct {
 	returnType     string
 }
 
-// todo 补全解析
 func parseMethodDescriptor(descriptor string) MethodDescriptor {
 	res := MethodDescriptor{}
 	res.returnType = strings.Split(descriptor, ")")[1]

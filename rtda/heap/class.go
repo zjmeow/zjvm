@@ -127,3 +127,9 @@ func (c *Class) IsArray() bool {
 func (c *Class) ClassLoader() *ClassLoader {
 	return c.classLoader
 }
+
+// 如果是数组类则可以拿到数组的class
+func (c *Class) ArrayClass() *Class {
+	arrayClassName := getArrayClassName(c.name)
+	return c.classLoader.LoadClass(arrayClassName)
+}
