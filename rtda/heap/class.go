@@ -86,15 +86,35 @@ func (c *Class) isSubInterfaceOf(iface *Class) bool {
 	return false
 }
 
+// todo 补全这个函数
 func (c *Class) isAssignableFrom(otherClass *Class) bool {
 	if c == otherClass {
 		return true
 	}
-	if !c.IsInterface() {
-		return otherClass.IsSubClass(c)
-	} else {
-		return otherClass.IsImplements(c)
+	if !otherClass.IsArray() {
+		if !c.IsInterface() && !otherClass.IsInterface() {
+			return c.IsSubClass(otherClass)
+		}
+		if !c.IsInterface() && otherClass.IsInterface() {
+			return c.IsImplements(otherClass)
+		}
+		if c.IsInterface() && !otherClass.IsInterface() {
+
+		}
+		if c.IsInterface() && otherClass.IsInterface() {
+
+		}
+		return false
 	}
+	// 如果是数组则走到这条分支
+	if !c.IsArray() {
+		return false
+	} else {
+		cComponent := c.ComponentClass()
+		otherComponent := otherClass.ComponentClass()
+		return cComponent == otherComponent || cComponent.isAssignableFrom(otherComponent)
+	}
+
 }
 
 func (c *Class) GetMainMethod() *Method {
@@ -132,4 +152,19 @@ func (c *Class) ClassLoader() *ClassLoader {
 func (c *Class) ArrayClass() *Class {
 	arrayClassName := getArrayClassName(c.name)
 	return c.classLoader.LoadClass(arrayClassName)
+}
+
+func (c *Class) ComponentClass() *Class {
+	componentClassName := getComponentClassName(c.name)
+	return c.classLoader.LoadClass(componentClassName)
+}
+func (c *Class) GetField(name, descriptor string, isStatic bool) *Field {
+	for class := c; class != nil; class = class.superClass {
+		for _, field := range class.fields {
+			if field.IsStatic() && isStatic && field.Name() == name && field.descriptor == descriptor {
+				return field
+			}
+		}
+	}
+	return nil
 }

@@ -21,3 +21,7 @@ func (o *Object) IsInstanceOf(class *Class) bool {
 func (o *Object) Class() *Class {
 	return o.class
 }
+func (o *Object) SetRefVar(name, descriptor string, ref *Object) {
+	field := o.class.GetField(name, descriptor, false)
+	o.Fields().SetRef(field.slotId, ref)
+}

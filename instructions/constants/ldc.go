@@ -3,6 +3,7 @@ package constants
 import (
 	"github.com/zjmeow/zjvm/instructions/base"
 	"github.com/zjmeow/zjvm/rtda"
+	"github.com/zjmeow/zjvm/rtda/heap"
 )
 
 type Ldc struct {
@@ -47,6 +48,9 @@ func ldc(frame *rtda.Frame, index uint) {
 		stack.PushInt(c.(int32))
 	case float32:
 		stack.PushFloat(c.(float32))
+	case string:
+		internedStr := heap.JString(frame.Method().Class().ClassLoader(), c.(string))
+		stack.PushRef(internedStr)
 	default:
 		panic("todo")
 	}

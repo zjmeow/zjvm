@@ -30,6 +30,8 @@ func toDescriptor(className string) string {
 	// 类数组
 	return "L" + className + ";"
 }
+
+// 拿到数组类名
 func getComponentClassName(className string) string {
 	if strings.HasPrefix(className, "[") {
 		componentTypeDescriptor := className[1:]
