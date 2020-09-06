@@ -39,7 +39,7 @@ func (g *GetStatic) Execute(frame *rtda.Frame) {
 	case 'D':
 		stack.PushDouble(slots.GetDouble(slotId))
 	case 'L', '[':
-		//stack.PushRef(slots.GetRef(slotId))
+		stack.PushRef(slots.GetRef(slotId))
 	}
 
 }
