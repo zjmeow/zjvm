@@ -16,7 +16,7 @@ func main() {
 	//	startJVM(cmd)
 	//}
 	cmd := &Cmd{}
-	cmd.class = "C:/Users/Administrator/Desktop/FibTest"
+	cmd.class = "C:/Users/Administrator/Desktop/BubbleSort"
 	startJVM(cmd)
 }
 

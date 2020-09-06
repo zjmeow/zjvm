@@ -43,7 +43,7 @@ func newMultiDimensionalArray(counts []int32, arrayClass *heap.Class) *heap.Obje
 	if len(counts) > 1 {
 		refs := array.Refs()
 		for i := range refs {
-			refs[i] = newMultiDimensionalArray(counts[1:], arrayClass.C)
+			refs[i] = newMultiDimensionalArray(counts[1:], arrayClass.ComponentClass())
 		}
 	}
 	return array

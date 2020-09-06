@@ -52,114 +52,114 @@ var (
 	aload_1     = loads.NewALoad(1)
 	aload_2     = loads.NewALoad(2)
 	aload_3     = loads.NewALoad(3)
-	//iaload        = NewIALoad()
-	//laload        = NewLALoad()
-	//faload        = NewFALoad()
-	//daload        = NewDALoad()
-	//aaload        = NewAALoad()
-	//baload        = NewBALoad()
-	//caload        = NewCALoad()
-	//saload        = NewSALoad()
-	istore_0 = stores.NewStoreInt(0)
-	istore_1 = stores.NewStoreInt(1)
-	istore_2 = stores.NewStoreInt(2)
-	istore_3 = stores.NewStoreInt(3)
-	lstore_0 = stores.NewStoreLong(0)
-	lstore_1 = stores.NewStoreLong(1)
-	lstore_2 = stores.NewStoreLong(2)
-	lstore_3 = stores.NewStoreLong(3)
-	fstore_0 = stores.NewStoreFloat(0)
-	fstore_1 = stores.NewStoreFloat(1)
-	fstore_2 = stores.NewStoreFloat(2)
-	fstore_3 = stores.NewStoreFloat(3)
-	dstore_0 = stores.NewStoreDouble(0)
-	dstore_1 = stores.NewStoreDouble(1)
-	dstore_2 = stores.NewStoreDouble(2)
-	dstore_3 = stores.NewStoreDouble(3)
-	astore_0 = stores.NewStoreA(0)
-	astore_1 = stores.NewStoreA(1)
-	astore_2 = stores.NewStoreA(2)
-	astore_3 = stores.NewStoreA(3)
-	//iastore       = NewIAStore()
-	//lastore       = NewLAStore()
-	//fastore       = NewFAStore()
-	//dastore       = NewDAStore()
-	//aastore       = NewAAStore()
-	//bastore       = NewBAStore()
-	//castore       = NewCAStore()
-	//sastore       = NewSAStore()
-	pop     = &stack.Pop{}
-	pop2    = &stack.Pop2{}
-	dup     = &stack.Dup{}
-	dup_x1  = &stack.DupX1{}
-	dup_x2  = &stack.DupX2{}
-	dup2    = &stack.Dup2{}
-	dup2_x1 = &stack.Dup2X1{}
-	dup2_x2 = &stack.Dup2X2{}
-	swap    = &stack.Swap{}
-	iadd    = math.NewIAdd()
-	ladd    = math.NewLAdd()
-	fadd    = math.NewFAdd()
-	dadd    = math.NewDAdd()
-	isub    = math.NewISub()
-	lsub    = math.NewLSub()
-	fsub    = math.NewFSub()
-	dsub    = math.NewDSub()
-	imul    = math.NewIMul()
-	lmul    = math.NewLMul()
-	fmul    = math.NewFMul()
-	dmul    = math.NewDMul()
-	idiv    = math.NewIDiv()
-	ldiv    = math.NewLDiv()
-	fdiv    = math.NewFDiv()
-	ddiv    = math.NewDDiv()
-	irem    = math.NewIRem()
-	lrem    = math.NewLRem()
-	frem    = math.NewFRem()
-	drem    = math.NewDRem()
-	ineg    = math.NewINeg()
-	lneg    = math.NewLNeg()
-	fneg    = math.NewFNeg()
-	dneg    = math.NewDNeg()
-	ishl    = math.NewIShl()
-	lshl    = math.NewLShl()
-	ishr    = math.NewIShr()
-	lshr    = math.NewLShr()
-	iushr   = math.NewIUShr()
-	lushr   = math.NewLUShr()
-	iand    = math.NewIAnd()
-	land    = math.NewLAnd()
-	ior     = math.NewIOr()
-	lor     = math.NewLOr()
-	ixor    = math.NewIXor()
-	lxor    = math.NewLXor()
-	i2l     = conversions.NewI2L()
-	i2f     = conversions.NewI2F()
-	i2d     = conversions.NewI2D()
-	l2i     = conversions.NewL2I()
-	l2f     = conversions.NewL2F()
-	l2d     = conversions.NewL2D()
-	f2i     = conversions.NewF2I()
-	f2l     = conversions.NewF2L()
-	f2d     = conversions.NewF2D()
-	d2i     = conversions.NewD2I()
-	d2l     = conversions.NewD2L()
-	d2f     = conversions.NewD2F()
-	i2b     = conversions.NewI2B()
-	i2c     = conversions.NewI2C()
-	i2s     = conversions.NewI2S()
-	lcmp    = comparisons.NewLCMP()
-	fcmpl   = comparisons.NewFCMPL()
-	fcmpg   = comparisons.NewFCMPG()
-	dcmpl   = comparisons.NewDCMPL()
-	dcmpg   = comparisons.NewDCMPG()
-	ireturn = control.NewReturn("i")
-	lreturn = control.NewReturn("l")
-	freturn = control.NewReturn("f")
-	dreturn = control.NewReturn("d")
-	areturn = control.NewReturn("a")
-	_return = control.NewReturn("v")
-	//arraylength   = &ArrayLength{}
+	iaload      = loads.NewIALoad()
+	laload      = loads.NewLALoad()
+	faload      = loads.NewFALoad()
+	daload      = loads.NewDALoad()
+	aaload      = loads.NewAALoad()
+	baload      = loads.NewBALoad()
+	caload      = loads.NewCALoad()
+	saload      = loads.NewSALoad()
+	istore_0    = stores.NewStoreInt(0)
+	istore_1    = stores.NewStoreInt(1)
+	istore_2    = stores.NewStoreInt(2)
+	istore_3    = stores.NewStoreInt(3)
+	lstore_0    = stores.NewStoreLong(0)
+	lstore_1    = stores.NewStoreLong(1)
+	lstore_2    = stores.NewStoreLong(2)
+	lstore_3    = stores.NewStoreLong(3)
+	fstore_0    = stores.NewStoreFloat(0)
+	fstore_1    = stores.NewStoreFloat(1)
+	fstore_2    = stores.NewStoreFloat(2)
+	fstore_3    = stores.NewStoreFloat(3)
+	dstore_0    = stores.NewStoreDouble(0)
+	dstore_1    = stores.NewStoreDouble(1)
+	dstore_2    = stores.NewStoreDouble(2)
+	dstore_3    = stores.NewStoreDouble(3)
+	astore_0    = stores.NewStoreA(0)
+	astore_1    = stores.NewStoreA(1)
+	astore_2    = stores.NewStoreA(2)
+	astore_3    = stores.NewStoreA(3)
+	iastore     = stores.NewIAStore()
+	lastore     = stores.NewLAStore()
+	fastore     = stores.NewFAStore()
+	dastore     = stores.NewDAStore()
+	aastore     = stores.NewAAStore()
+	bastore     = stores.NewBAStore()
+	castore     = stores.NewCAStore()
+	sastore     = stores.NewSAStore()
+	pop         = &stack.Pop{}
+	pop2        = &stack.Pop2{}
+	dup         = &stack.Dup{}
+	dup_x1      = &stack.DupX1{}
+	dup_x2      = &stack.DupX2{}
+	dup2        = &stack.Dup2{}
+	dup2_x1     = &stack.Dup2X1{}
+	dup2_x2     = &stack.Dup2X2{}
+	swap        = &stack.Swap{}
+	iadd        = math.NewIAdd()
+	ladd        = math.NewLAdd()
+	fadd        = math.NewFAdd()
+	dadd        = math.NewDAdd()
+	isub        = math.NewISub()
+	lsub        = math.NewLSub()
+	fsub        = math.NewFSub()
+	dsub        = math.NewDSub()
+	imul        = math.NewIMul()
+	lmul        = math.NewLMul()
+	fmul        = math.NewFMul()
+	dmul        = math.NewDMul()
+	idiv        = math.NewIDiv()
+	ldiv        = math.NewLDiv()
+	fdiv        = math.NewFDiv()
+	ddiv        = math.NewDDiv()
+	irem        = math.NewIRem()
+	lrem        = math.NewLRem()
+	frem        = math.NewFRem()
+	drem        = math.NewDRem()
+	ineg        = math.NewINeg()
+	lneg        = math.NewLNeg()
+	fneg        = math.NewFNeg()
+	dneg        = math.NewDNeg()
+	ishl        = math.NewIShl()
+	lshl        = math.NewLShl()
+	ishr        = math.NewIShr()
+	lshr        = math.NewLShr()
+	iushr       = math.NewIUShr()
+	lushr       = math.NewLUShr()
+	iand        = math.NewIAnd()
+	land        = math.NewLAnd()
+	ior         = math.NewIOr()
+	lor         = math.NewLOr()
+	ixor        = math.NewIXor()
+	lxor        = math.NewLXor()
+	i2l         = conversions.NewI2L()
+	i2f         = conversions.NewI2F()
+	i2d         = conversions.NewI2D()
+	l2i         = conversions.NewL2I()
+	l2f         = conversions.NewL2F()
+	l2d         = conversions.NewL2D()
+	f2i         = conversions.NewF2I()
+	f2l         = conversions.NewF2L()
+	f2d         = conversions.NewF2D()
+	d2i         = conversions.NewD2I()
+	d2l         = conversions.NewD2L()
+	d2f         = conversions.NewD2F()
+	i2b         = conversions.NewI2B()
+	i2c         = conversions.NewI2C()
+	i2s         = conversions.NewI2S()
+	lcmp        = comparisons.NewLCMP()
+	fcmpl       = comparisons.NewFCMPL()
+	fcmpg       = comparisons.NewFCMPG()
+	dcmpl       = comparisons.NewDCMPL()
+	dcmpg       = comparisons.NewDCMPG()
+	ireturn     = control.NewReturn("i")
+	lreturn     = control.NewReturn("l")
+	freturn     = control.NewReturn("f")
+	dreturn     = control.NewReturn("d")
+	areturn     = control.NewReturn("a")
+	_return     = control.NewReturn("v")
+	arraylength = &references.ArrayLength{}
 	//athrow        = &AThrow{}
 	//monitorenter  = &MonitorEnter{}
 	//monitorexit   = &MonitorExit{}
@@ -210,16 +210,16 @@ func NewInstruction(opcode byte) base.Instruction {
 		return &constants.LdcW{}
 	case OpLDC2w:
 		return &constants.Ldc2W{}
-	//case OpILoad:
-	//	return NewLoad(false)
-	//case OpLLoad:
-	//	return NewLoad(true)
-	//case OpFLoad:
-	//	return NewLoad(false)
-	//case OpDLoad:
-	//	return NewLoad(true)
-	//case OpALoad:
-	//	return NewLoad(false)
+	case OpILoad:
+		return &loads.ILOAD{}
+	case OpLLoad:
+		return &loads.LLOAD{}
+	case OpFLoad:
+		return &loads.FLOAD{}
+	case OpDLoad:
+		return &loads.DLOAD{}
+	case OpALoad:
+		return &loads.ALOAD{}
 	case OpILoad0:
 		return iload_0
 	case OpILoad1:
@@ -260,32 +260,32 @@ func NewInstruction(opcode byte) base.Instruction {
 		return aload_2
 	case OpALoad3:
 		return aload_3
-	//case OpIALoad:
-	//	return iaload
-	//case OpLALoad:
-	//	return laload
-	//case OpFALoad:
-	//	return faload
-	//case OpDALoad:
-	//	return daload
-	//case OpAALoad:
-	//	return aaload
-	//case OpBALoad:
-	//	return baload
-	//case OpCALoad:
-	//	return caload
-	//case OpSALoad:
-	//	return saload
-	//case OpIStore:
-	//	return NewStore(false)
-	//case OpLStore:
-	//	return NewStore(true)
-	//case OpFStore:
-	//	return NewStore(false)
-	//case OpDStore:
-	//	return NewStore(true)
-	//case OpAStore:
-	//	return NewStore(false)
+	case OpIALoad:
+		return iaload
+	case OpLALoad:
+		return laload
+	case OpFALoad:
+		return faload
+	case OpDALoad:
+		return daload
+	case OpAALoad:
+		return aaload
+	case OpBALoad:
+		return baload
+	case OpCALoad:
+		return caload
+	case OpSALoad:
+		return saload
+	case OpIStore:
+		return &stores.ISTORE{}
+	case OpLStore:
+		return &stores.LSTORE{}
+	case OpFStore:
+		return &stores.FSTORE{}
+	case OpDStore:
+		return &stores.DSTORE{}
+	case OpAStore:
+		return &stores.ASTORE{}
 	case OpIStore0:
 		return istore_0
 	case OpIStore1:
@@ -326,22 +326,22 @@ func NewInstruction(opcode byte) base.Instruction {
 		return astore_2
 	case OpAStore3:
 		return astore_3
-	//case OpIAStore:
-	//	return iastore
-	//case OpLAStore:
-	//	return lastore
-	//case OpFAStore:
-	//	return fastore
-	//case OpDAStore:
-	//	return dastore
-	//case OpAAStore:
-	//	return aastore
-	//case OpBAStore:
-	//	return bastore
-	//case OpCAStore:
-	//	return castore
-	//case OpSAStore:
-	//	return sastore
+	case OpIAStore:
+		return iastore
+	case OpLAStore:
+		return lastore
+	case OpFAStore:
+		return fastore
+	case OpDAStore:
+		return dastore
+	case OpAAStore:
+		return aastore
+	case OpBAStore:
+		return bastore
+	case OpCAStore:
+		return castore
+	case OpSAStore:
+		return sastore
 	case OpPop:
 		return pop
 	case OpPop2:
@@ -544,12 +544,12 @@ func NewInstruction(opcode byte) base.Instruction {
 	//	return &InvokeDynamic{}
 	case OpNew:
 		return &references.New{}
-	//case OpNewArray:
-	//	return &NewArray{}
-	//case OpANewArray:
-	//	return &ANewArray{}
-	//case OpArrayLength:
-	//	return arraylength
+	case OpNewArray:
+		return &references.NewArray{}
+	case OpANewArray:
+		return &references.ANewArray{}
+	case OpArrayLength:
+		return arraylength
 	//case OpAThrow:
 	//	return athrow
 	case OpCheckCast:
