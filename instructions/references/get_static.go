@@ -29,6 +29,10 @@ func (g *GetStatic) Execute(frame *rtda.Frame) {
 	slotId := field.SlotId()
 	slots := class.StaticVars()
 	stack := frame.OperandStack()
+	// hack 跳过无法加载的system类
+	if descriptor == "Ljava/io/PrintStream;" {
+		return
+	}
 	switch descriptor[0] {
 	case 'Z', 'B', 'C', 'S', 'I':
 		stack.PushInt(slots.GetInt(slotId))

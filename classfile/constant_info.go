@@ -45,8 +45,15 @@ func newTagInfo(tag uint8, cp ConstantPool) ConstantInfo {
 		return &ConstantInterfaceRefInfo{ConstantMemberRefInfo{cp: cp}}
 	case CONSTANT_NameAndType:
 		return &ConstantNameAndTypeInfo{}
+	case CONSTANT_InvokeDynamic:
+		return &ConstantInvokeDynamicInfo{}
+	case CONSTANT_MethodHandle:
+		return &ConstantMethodHandleInfo{}
+	case CONSTANT_MethodType:
+		return &ConstantMethodTypeInfo{}
 	}
 	panic("java.lang.ClassFormatError: constant pool tag")
+	//return nil
 }
 
 func readConstantInfo(reader *ClassReader, cp ConstantPool) ConstantInfo {
