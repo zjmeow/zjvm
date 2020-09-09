@@ -39,3 +39,8 @@ func (t *Thread) TopFrame() (frame *Frame) {
 func (t *Thread) StackIsEmpty() bool {
 	return t.stack.IsEmpty()
 }
+func (t *Thread) ClearStack() {
+	for !t.stack.IsEmpty() {
+		t.PopFrame()
+	}
+}

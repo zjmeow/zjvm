@@ -11,7 +11,7 @@ type Method struct {
 	maxLocals      uint16
 	code           []byte
 	argSlotCount   uint
-	exceptionTable classfile.ExceptionTable
+	exceptionTable ExceptionTable
 }
 
 func newMethods(class *Class, cfMethods []*classfile.MemberInfo) []*Method {
@@ -60,7 +60,7 @@ func (m *Method) copyAttributes(cfMethod *classfile.MemberInfo) {
 		m.maxStack = codeAttr.MaxStack()
 		m.maxLocals = codeAttr.MaxLocals()
 		m.code = codeAttr.Code()
-		m.exceptionTable = newExceptionTable(codeAttr.E)
+		m.exceptionTable = newExceptionTable(codeAttr.ExceptionTableEntry(), m.class.ConstantPool())
 	}
 }
 func (m *Method) MaxStack() uint16 {
@@ -107,5 +107,9 @@ func (m *Method) injectCodeAttribute(returnType string) {
 	default:
 		m.code = []byte{instructions.OpInvokeNative, instructions.OpIReturn}
 	}
+
+}
+
+func (m *Method) FindExceptionHandler(class *Class, pc int) int {
 
 }

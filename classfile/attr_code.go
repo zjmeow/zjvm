@@ -48,3 +48,23 @@ func (ca *CodeAttribute) MaxLocals() uint16 {
 func (ca *CodeAttribute) Code() []byte {
 	return ca.code
 }
+
+func (ca *CodeAttribute) ConstantPool() ConstantPool {
+	return ca.cp
+}
+func (ca *CodeAttribute) ExceptionTableEntry() []*ExceptionTableEntry {
+	return ca.exceptionTable
+}
+
+func (e *ExceptionTableEntry) StartPc() uint16 {
+	return e.startPc
+}
+func (e *ExceptionTableEntry) EndPc() uint16 {
+	return e.endPc
+}
+func (e *ExceptionTableEntry) HandlerPc() uint16 {
+	return e.handlerPc
+}
+func (e *ExceptionTableEntry) CatchType() uint16 {
+	return e.catchType
+}
