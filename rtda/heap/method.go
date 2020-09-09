@@ -7,10 +7,11 @@ import (
 
 type Method struct {
 	ClassMember
-	maxStack     uint16
-	maxLocals    uint16
-	code         []byte
-	argSlotCount uint
+	maxStack       uint16
+	maxLocals      uint16
+	code           []byte
+	argSlotCount   uint
+	exceptionTable classfile.ExceptionTable
 }
 
 func newMethods(class *Class, cfMethods []*classfile.MemberInfo) []*Method {
@@ -34,11 +35,32 @@ func newMethod(class *Class, cfMethod *classfile.MemberInfo) *Method {
 	return method
 }
 
+func newExceptionTable(entries []*classfile.ExceptionTableEntry, cp *ConstantPool) ExceptionTable {
+	table := make([]*ExceptionHandler, len(entries))
+	for i, entry := range entries {
+		table[i] = &ExceptionHandler{
+			startPc:   int(entry.StartPc()),
+			endPc:     int(entry.EndPc()),
+			handlerPc: int(entry.HandlerPc()),
+			catchType: getCatchType(uint(entry.CatchType()), cp),
+		}
+	}
+	return table
+}
+
+func getCatchType(index uint, cp *ConstantPool) *ClassRef {
+	if index == 0 {
+		return nil
+	}
+	return cp.GetConstant(index).(*ClassRef)
+}
+
 func (m *Method) copyAttributes(cfMethod *classfile.MemberInfo) {
 	if codeAttr := cfMethod.CodeAttribute(); codeAttr != nil {
 		m.maxStack = codeAttr.MaxStack()
 		m.maxLocals = codeAttr.MaxLocals()
 		m.code = codeAttr.Code()
+		m.exceptionTable = newExceptionTable(codeAttr.E)
 	}
 }
 func (m *Method) MaxStack() uint16 {
