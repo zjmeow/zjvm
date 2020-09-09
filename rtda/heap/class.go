@@ -31,7 +31,7 @@ func newClass(cf *classfile.ClassFile) *Class {
 	class.interfaceNames = cf.InterfaceNames()
 	class.constantPool = newConstantPool(class, cf.ConstantPool())
 	class.fields = newField(class, cf.Fields())
-	class.methods = newMethod(class, cf.Methods())
+	class.methods = newMethods(class, cf.Methods())
 	return class
 }
 
@@ -40,6 +40,10 @@ func (c *Class) GetPackageName() string {
 		return c.name[:i]
 	}
 	return ""
+}
+
+func (c *Class) Name() string {
+	return c.name
 }
 func (c *Class) isAccessibleTo(other *Class) bool {
 	if c.IsPublic() {
