@@ -21,6 +21,7 @@ type Class struct {
 	staticFieldCount   uint
 	instanceSlotCount  uint
 	initStarted        bool
+	sourceFile         string
 }
 
 func newClass(cf *classfile.ClassFile) *Class {

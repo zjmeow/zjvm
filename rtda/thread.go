@@ -44,3 +44,7 @@ func (t *Thread) ClearStack() {
 		t.PopFrame()
 	}
 }
+
+func (t *Thread) GetFrames() []*Frame {
+	return t.stack.getFrames()
+}
