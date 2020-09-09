@@ -22,12 +22,9 @@ func (ins *InvokeVirtual) Execute(frame *rtda.Frame) {
 	}
 	// 拿到调用方的引用，如果为空抛出空异常
 	ref := frame.OperandStack().GetRefFromTop(resolveMethod.ArgSlotCount() - 2)
-	if ref == nil {
-		if methodRef.Name() == "println" {
-			fmt.Println(frame.OperandStack())
-			return
-		}
-		panic("java.lang.NullPointException")
+	if methodRef.Name() == "println" {
+		fmt.Println(frame.OperandStack().PopRef())
+		return
 	}
 	// 判断权限
 	if resolveMethod.IsProtected() &&

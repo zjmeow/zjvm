@@ -161,7 +161,7 @@ func (c *Class) ComponentClass() *Class {
 func (c *Class) GetField(name, descriptor string, isStatic bool) *Field {
 	for class := c; class != nil; class = class.superClass {
 		for _, field := range class.fields {
-			if field.IsStatic() && isStatic && field.Name() == name && field.descriptor == descriptor {
+			if field.IsStatic() == isStatic && field.Name() == name && field.descriptor == descriptor {
 				return field
 			}
 		}
