@@ -10,6 +10,7 @@ import (
 	"github.com/zjmeow/zjvm/instructions/loads"
 	"github.com/zjmeow/zjvm/instructions/math"
 	"github.com/zjmeow/zjvm/instructions/references"
+	"github.com/zjmeow/zjvm/instructions/reserved"
 	"github.com/zjmeow/zjvm/instructions/stack"
 	"github.com/zjmeow/zjvm/instructions/stores"
 )
@@ -575,8 +576,8 @@ func NewInstruction(opcode byte) base.Instruction {
 	////case 0xca: todo breakpoint
 	//case OpBreakpoint:
 	//	return invoke_native // impdep1
-	//case OpInvokeNative:
-	//	return &Bootstrap{} // impdep2
+	case OpInvokeNative:
+		return &reserved.InvokeNative{} // impdep2
 	default:
 		panic(fmt.Errorf("invalid opcode: %v", opcode))
 	}

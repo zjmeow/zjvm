@@ -2,7 +2,6 @@ package heap
 
 import (
 	"github.com/zjmeow/zjvm/classfile"
-	"github.com/zjmeow/zjvm/instructions"
 )
 
 type Method struct {
@@ -95,21 +94,22 @@ func (m *Method) injectCodeAttribute(returnType string) {
 	m.maxLocals = uint16(m.argSlotCount)
 	switch returnType {
 	case "V":
-		m.code = []byte{instructions.OpInvokeNative, instructions.OpReturn}
+		m.code = []byte{0xfe, 0xb1}
 	case "D":
-		m.code = []byte{instructions.OpInvokeNative, instructions.OpDReturn}
+		m.code = []byte{0xfe, 0xaf}
 	case "F":
-		m.code = []byte{instructions.OpInvokeNative, instructions.OpFReturn}
+		m.code = []byte{0xfe, 0xae}
 	case "J":
-		m.code = []byte{instructions.OpInvokeNative, instructions.OpLReturn}
+		m.code = []byte{0xfe, 0xad}
 	case "L", "[":
-		m.code = []byte{instructions.OpInvokeNative, instructions.OpAReturn}
+		m.code = []byte{0xfe, 0xb0}
 	default:
-		m.code = []byte{instructions.OpInvokeNative, instructions.OpIReturn}
+		m.code = []byte{0xfe, 0xac}
 	}
 
 }
 
+// todo
 func (m *Method) FindExceptionHandler(class *Class, pc int) int {
-
+	return 0
 }
