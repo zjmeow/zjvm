@@ -14,10 +14,10 @@ func init() {
 }
 
 func fillInStackTrace(frame *rtda.Frame) {
-	//this := frame
-	//frame.OperandStack().PushRef(this)
-	//stes := createStackTrackElements(this, frame.Thread())
-	//this.SetExtra(stes)
+	this := frame.LocalVars().GetRef(0)
+	frame.OperandStack().PushRef(this)
+	stes := createStackTrackElements(this, frame.Thread())
+	this.SetExtra(stes)
 }
 
 type StackTraceElement struct {
