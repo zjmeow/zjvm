@@ -173,3 +173,7 @@ func (c *Class) GetField(name, descriptor string, isStatic bool) *Field {
 	}
 	return nil
 }
+func (c *Class) IsPrimitive() bool {
+	_, ok := primitiveTypes[c.name]
+	return ok
+}
