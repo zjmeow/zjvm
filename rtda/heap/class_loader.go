@@ -19,6 +19,7 @@ func NewClassLoader(cp *classpath.ClassPath) *ClassLoader {
 		classMap: make(map[string]*Class),
 	}
 	loader.loadBasicClass()
+
 	return loader
 }
 func (cl *ClassLoader) loadBasicClass() {
@@ -29,6 +30,23 @@ func (cl *ClassLoader) loadBasicClass() {
 			class.jClass.SetExtra(class)
 		}
 	}
+}
+func (cl *ClassLoader) loadPrimitiveClasses() {
+	for primitiveType, _ := range primitiveTypes {
+		cl.loadPrimitiveClass(primitiveType)
+	}
+}
+
+func (cl *ClassLoader) loadPrimitiveClass(className string) {
+	class := &Class{
+		AccessFlags: classfile.AccPublic,
+		name:        className,
+		classLoader: cl,
+		initStarted: true,
+	}
+	class.jClass = cl.classMap["java/lang/Class"].NewObject()
+	class.jClass.SetExtra(cl)
+	cl.classMap[className] = class
 }
 
 func (cl *ClassLoader) LoadClass(name string) *Class {
