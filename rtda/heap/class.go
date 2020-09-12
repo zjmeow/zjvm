@@ -22,6 +22,7 @@ type Class struct {
 	instanceSlotCount  uint
 	initStarted        bool
 	sourceFile         string
+	jClass             *Object
 }
 
 func newClass(cf *classfile.ClassFile) *Class {
@@ -91,7 +92,7 @@ func (c *Class) isSubInterfaceOf(iface *Class) bool {
 	return false
 }
 
-// todo 补全这个函数
+// todo 补全这个函数,否在在数组的比较上会有问题
 func (c *Class) isAssignableFrom(otherClass *Class) bool {
 	if c == otherClass {
 		return true
@@ -120,6 +121,10 @@ func (c *Class) isAssignableFrom(otherClass *Class) bool {
 		return cComponent == otherComponent || cComponent.isAssignableFrom(otherComponent)
 	}
 
+}
+
+func (c *Class) JClass() *Object {
+	return c.jClass
 }
 
 func (c *Class) GetMainMethod() *Method {

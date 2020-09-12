@@ -14,9 +14,20 @@ type ClassLoader struct {
 }
 
 func NewClassLoader(cp *classpath.ClassPath) *ClassLoader {
-	return &ClassLoader{
+	loader := &ClassLoader{
 		cp:       cp,
 		classMap: make(map[string]*Class),
+	}
+	loader.loadBasicClass()
+	return loader
+}
+func (cl *ClassLoader) loadBasicClass() {
+	jlClass := cl.LoadClass("java/lang/Class")
+	for _, class := range cl.classMap {
+		if class.jClass == nil {
+			class.jClass = jlClass.NewObject()
+			class.jClass.SetExtra(class)
+		}
 	}
 }
 
@@ -24,11 +35,20 @@ func (cl *ClassLoader) LoadClass(name string) *Class {
 	if class, ok := cl.classMap[name]; ok {
 		return class
 	}
+	var classRes *Class
 	// 如果是数组
 	if strings.HasPrefix(name, "[") {
-		return cl.loadArrayClass(name)
+		classRes = cl.loadArrayClass(name)
+	} else {
+		classRes = cl.loadNonArrayClass(name)
 	}
-	return cl.loadNonArrayClass(name)
+	// 给类设置个关联对象
+	if jlClass, ok := cl.classMap["java/lang/Class"]; ok {
+		classRes.jClass = jlClass.NewObject()
+		classRes.jClass.SetExtra(classRes)
+	}
+	return classRes
+
 }
 
 // 数组类初始化比较简单创建好类放进map中即可
