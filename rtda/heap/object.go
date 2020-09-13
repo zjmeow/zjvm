@@ -3,12 +3,20 @@ package heap
 type Object struct {
 	class *Class
 	data  interface{}
+	extra interface{}
 }
 
 func newObject(class *Class) *Object {
 	return &Object{
 		class: class,
 		data:  newSlots(class.instanceSlotCount),
+	}
+}
+
+func NewDefaultObject(class *Class, data interface{}) *Object {
+	return &Object{
+		class: class,
+		data:  data,
 	}
 }
 
@@ -26,5 +34,8 @@ func (o *Object) SetRefVar(name, descriptor string, ref *Object) {
 	o.Fields().SetRef(field.slotId, ref)
 }
 func (o *Object) SetExtra(extra interface{}) {
-
+	o.extra = extra
+}
+func (o *Object) Extra() interface{} {
+	return o.extra
 }

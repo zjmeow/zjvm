@@ -3,6 +3,7 @@ package reserved
 import (
 	"github.com/zjmeow/zjvm/instructions/base"
 	"github.com/zjmeow/zjvm/native"
+	_ "github.com/zjmeow/zjvm/native/java/lang"
 	"github.com/zjmeow/zjvm/rtda"
 )
 

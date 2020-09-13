@@ -10,7 +10,7 @@ func JString(loader *ClassLoader, goStr string) *Object {
 		return str
 	}
 	chars := stringToUtf16(goStr)
-	jChars := &Object{loader.LoadClass("[C"), chars}
+	jChars := NewDefaultObject(loader.LoadClass("[C"), chars)
 	jStr := loader.LoadClass("java/lang/String").NewObject()
 	jStr.SetRefVar("value", "[C", jChars)
 	internedStrings[goStr] = jStr
