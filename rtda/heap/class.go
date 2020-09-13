@@ -139,6 +139,16 @@ func (c *Class) getStaticMethod(name, descriptor string) *Method {
 	}
 	return nil
 }
+
+func (c *Class) GetInstanceMethod(name, descriptor string) *Method {
+	for _, m := range c.methods {
+		if m.Name() == name && m.Descriptor() == descriptor {
+			return m
+		}
+	}
+	return nil
+}
+
 func (c *Class) SuperClass() *Class {
 	return c.superClass
 }
@@ -183,6 +193,7 @@ func (c *Class) IsPrimitive() bool {
 	return ok
 }
 
-func (c *Class) GetRefVar() *Object {
-
+// todo 不知道是怎么实现的
+func (c *Class) GetRefVar(name, descriptor string) *Object {
+	return c.jClass.GetRefVar(name, descriptor)
 }

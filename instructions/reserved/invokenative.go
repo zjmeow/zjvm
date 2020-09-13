@@ -4,6 +4,7 @@ import (
 	"github.com/zjmeow/zjvm/instructions/base"
 	"github.com/zjmeow/zjvm/native"
 	_ "github.com/zjmeow/zjvm/native/java/lang"
+	_ "github.com/zjmeow/zjvm/native/sun/misc"
 	"github.com/zjmeow/zjvm/rtda"
 )
 
