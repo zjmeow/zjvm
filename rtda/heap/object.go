@@ -39,3 +39,8 @@ func (o *Object) SetExtra(extra interface{}) {
 func (o *Object) Extra() interface{} {
 	return o.extra
 }
+func (o *Object) GetRefVar(name, descriptor string) *Object {
+	field := o.class.GetField(name, descriptor, false)
+	slots := o.data.(LocalVars)
+	return slots.GetRef(field.slotId)
+}

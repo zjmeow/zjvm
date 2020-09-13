@@ -30,5 +30,6 @@ func InternString(jStr *Object) *Object {
 	return jStr
 }
 func GoString(jStr *Object) string {
-	return string(utf16.Decode(jStr.data.([]uint16)))
+	charArr := jStr.GetRefVar("value", "[C")
+	return string(utf16.Decode(charArr.Chars()))
 }

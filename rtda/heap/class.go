@@ -182,3 +182,7 @@ func (c *Class) IsPrimitive() bool {
 	_, ok := primitiveTypes[c.name]
 	return ok
 }
+
+func (c *Class) GetRefVar() *Object {
+
+}
