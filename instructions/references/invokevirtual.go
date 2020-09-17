@@ -23,7 +23,8 @@ func (ins *InvokeVirtual) Execute(frame *rtda.Frame) {
 	// 拿到调用方的引用，如果为空抛出空异常
 	ref := frame.OperandStack().GetRefFromTop(resolveMethod.ArgSlotCount() - 2)
 	if methodRef.Name() == "println" {
-		fmt.Println(frame.OperandStack().PopRef())
+		goStr := heap.GoString(frame.OperandStack().PopRef())
+		fmt.Println(goStr)
 		return
 	}
 	// 判断权限
