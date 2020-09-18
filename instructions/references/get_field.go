@@ -22,7 +22,8 @@ func (g *GetField) Execute(frame *rtda.Frame) {
 	}
 	// 如果是final，则需要看是否是在本class的 clinit 中初始化的，如果不是就要抛出异常
 	// clinit 初始化能保证是线程安全的，所以会被用来做单例初始化
-	if field.IsFinal() {
+	//这里classLoader 是在jvm虚拟机中初始化的，需要无视掉这个规则
+	if field.IsFinal() && field.Name() != "classLoader" {
 		if class != fieldClass || method.Name() != "<clinit>" {
 			panic("java.lang.IllegalAccessError")
 		}

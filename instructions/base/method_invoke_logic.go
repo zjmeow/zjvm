@@ -1,6 +1,7 @@
 package base
 
 import (
+	"github.com/zjmeow/zjvm/native"
 	"github.com/zjmeow/zjvm/rtda"
 	"github.com/zjmeow/zjvm/rtda/heap"
 )
@@ -17,11 +18,7 @@ func InvokeMethod(invokerFrame *rtda.Frame, method *heap.Method) {
 		}
 	}
 	if method.IsNative() {
-		if method.Name() == "registerNatives" {
-			thread.PopFrame()
-		} else {
-			panic("not support native method")
-		}
-
+		nativeMethod := native.FindNativeMethod(method.Class().Name(), method.Name(), method.Descriptor())
+		nativeMethod(newFrame)
 	}
 }
