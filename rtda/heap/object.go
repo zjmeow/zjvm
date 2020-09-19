@@ -44,3 +44,6 @@ func (o *Object) GetRefVar(name, descriptor string) *Object {
 	slots := o.data.(LocalVars)
 	return slots.GetRef(field.slotId)
 }
+func (o *Object) Data() interface{} {
+	return o.data
+}

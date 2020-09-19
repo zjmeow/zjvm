@@ -33,6 +33,7 @@ func (mi *MemberInfo) Name() string {
 func (mi *MemberInfo) Descriptor() string {
 	return mi.cp.getUtf8(mi.descriptorIndex)
 }
+
 func (mi *MemberInfo) CodeAttribute() *CodeAttribute {
 	for _, attrInfo := range mi.attributes {
 		switch attrInfo.(type) {
@@ -42,6 +43,7 @@ func (mi *MemberInfo) CodeAttribute() *CodeAttribute {
 	}
 	return nil
 }
+
 func (mi *MemberInfo) AccessFlags() AccessFlags {
 	return mi.accessFlags
 }

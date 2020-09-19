@@ -128,10 +128,10 @@ func (c *Class) JClass() *Object {
 }
 
 func (c *Class) GetMainMethod() *Method {
-	return c.getStaticMethod("main", "([Ljava/lang/String;)V")
+	return c.GetStaticMethod("main", "([Ljava/lang/String;)V")
 }
 
-func (c *Class) getStaticMethod(name, descriptor string) *Method {
+func (c *Class) GetStaticMethod(name, descriptor string) *Method {
 	for _, m := range c.methods {
 		if m.Name() == name && m.Descriptor() == descriptor {
 			return m
@@ -159,7 +159,7 @@ func (c *Class) StartInit() {
 	c.initStarted = true
 }
 func (c *Class) GetClinitMethod() *Method {
-	return c.getStaticMethod("<clinit>", "()V")
+	return c.GetStaticMethod("<clinit>", "()V")
 }
 func (c *Class) IsArray() bool {
 	return strings.HasPrefix(c.name, "[")

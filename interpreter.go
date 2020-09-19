@@ -5,15 +5,11 @@ import (
 	"github.com/zjmeow/zjvm/instructions"
 	"github.com/zjmeow/zjvm/instructions/base"
 	"github.com/zjmeow/zjvm/rtda"
-	"github.com/zjmeow/zjvm/rtda/heap"
 	"reflect"
 )
 
-func interpret(method *heap.Method) {
-	thread := rtda.NewThread()
+func interpret(thread *rtda.Thread) {
 	defer catchErr(thread)
-	frame := thread.NewFrame(method)
-	thread.PushFrame(frame)
 	loop(thread)
 }
 
